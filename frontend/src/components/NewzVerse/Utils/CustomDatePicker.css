@@ -1,0 +1,119 @@
+.custom-range-popup {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+.custom-range-popup .rdrDay {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  font-size: 13px !important;
+  padding: 0 !important;
+  margin: 1px !important;
+  border-radius: 6px !important;
+  line-height: 28px !important;
+}
+.custom-range-popup .rdrDayNumber span {
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 10px !important;
+  line-height: 28px !important;
+}
+.custom-range-popup .rdrWeekDays {
+  font-size: 12px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.custom-sidebar {
+  background: #f8f9fa;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-right: 1px solid #e5e7eb;
+  min-width: 120px;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sidebar-option {
+  font-size: 12px;
+  padding: 6px 20px;
+  border-radius: 8px;
+  color: #222;
+  cursor: pointer;
+  margin: 2px 0;
+  transition: background 0.2s, color 0.2s;
+}
+.sidebar-option:hover {
+  background: #e6f0ff;
+  color: #1976d2;
+}
+.custom-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 6px;
+}
+.nav-arrow {
+  background: #f3f3f3;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.nav-arrow:hover {
+  background: #e6f0ff;
+  color: #1976d2;
+}
+.nav-month {
+  font-size: 17px;
+  font-weight: 500;
+  color: #1976d2;
+}
+.custom-range-picker .rdrDateDisplayWrapper {
+  display: none;
+}
+.picker-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 0 0 0;
+  background: #fafbfc;
+  margin-right: 10px;
+  margin-top: -10px;
+}
+.picker-actions .reset-btn,
+.picker-actions .done-btn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-bottom: 8px;
+  margin-top: -20px;
+}
+.picker-actions .reset-btn {
+  background: #f3f3f3;
+  color: #444;
+}
+.picker-actions .done-btn {
+  background: #1976d2;
+  color: #fff;
+}
+.picker-actions .reset-btn:hover {
+  background: #e0e0e0;
+}
+.picker-actions .done-btn:hover {
+  background: #145ea8;
+}

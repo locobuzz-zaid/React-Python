@@ -1,0 +1,170 @@
+@import "../sass/color.scss";
+
+/* global css starts here*/
+.text-color-primary {
+  color: var(--color-primary-highlight);
+}
+
+.highlight-keyword-text {
+  // color: var(--color-keyword-highlight);
+  padding: 0.05rem 0.2rem;
+  border-radius: 4px;
+  background-color: var(--color-keyword-highlight-1);
+  color: var(--color-black);
+}
+
+.lightTheme.bodyThemeLight .highlight-keyword-text,
+.lightTheme .highlight-keyword-text,
+.bodyThemeLight .highlight-keyword-text {
+  padding: 0.05rem 0.2rem;
+  border-radius: 4px;
+  background-color: var(--color-keyword-highlight-2);
+  color: var(--color-black);
+}
+
+.lightTheme.bodyThemeLight .highlight-keyword-text,
+.lightTheme .highlight-keyword-text,
+.bodyThemeLight .highlight-keyword-text {
+  padding: 0.05rem 0.2rem;
+  border-radius: 4px;
+  background-color: var(--color-keyword-highlight-2);
+  color: var(--color-black);
+}
+
+.highcharts-credits {
+  display: none !important;
+}
+
+.bg__color--primary-dark {
+  background-color: var(--color-night-mode);
+}
+
+.Screen__defaultMessage {
+  color: var(--secondary-color);
+}
+
+.Screen__errorMessage {
+  color: rgb(255, 125, 108);
+}
+
+.Screen__errorMessage,
+.Screen__defaultMessage {
+  font-size: 0.75em;
+  margin-top: -0.4rem;
+}
+
+.CommandCenter_main {
+  & .resize__chart--window {
+    background-color: var(--color-light-locobuzz) !important;
+    // border-radius: 12px;
+  }
+
+  & .AgentPerformance .resize__chart--window,
+  .CommandCenter--nodata {
+    background-color: var(--color-light-locobuzz) !important;
+    // border-radius: 12px;
+    height: calc(100% - 10px);
+  }
+
+  & .global_loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 999;
+    background-color: var(--color-night-mode);
+
+    &.none {
+      display: none;
+    }
+  }
+
+  & .content {
+    &__backgraoud {
+      &--transparent {
+        background: transparent !important;
+
+        &.portlet {
+          background: transparent !important;
+        }
+
+        & .resize__chart--window,
+        .CommandCenter--nodata,
+        .cards_content {
+          background-color: transparent !important;
+          border-radius: 12px;
+          height: calc(100% - 10px);
+        }
+      }
+    }
+  }
+}
+
+/* global css ends here*/
+
+/* spli grid chart pagination css starts here*/
+.SplitGridPagination {
+  position: relative;
+
+  & .page-count {
+    margin-top: -20px;
+  }
+
+  & .ant-select-dropdown {
+    text-align: left;
+  }
+
+  & .ant-pagination-item,
+  .ant-pagination-total-text {
+    font-size: var(--regular-fonts-Size);
+    color: var(--primary-color);
+    font-family: var(--primary-body-fonts);
+  }
+
+  & .ant-pagination-options {
+    display: block;
+    margin-left: 0px;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    & .ant-select-selection-item,
+    .ant-select-single .ant-select-selector .ant-select-selection-item,
+    .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+      line-height: 33px !important;
+      font-size: var(--regular-fonts-Size);
+      color: var(--primary-color);
+      font-family: var(--primary-body-fonts);
+    }
+
+  }
+
+  & .ant-pagination-options-size-changer.ant-select:before {
+    content: "Rows per page";
+    font-weight: var(--xx-large-fonts-weight);
+    font-size: var(--regular-fonts-weight);
+    color: var(--border-dark-grey);
+    min-width: 105px;
+    text-align: left;
+  }
+
+  & .ant-pagination-options-size-changer.ant-select {
+    display: flex;
+    width: auto;
+    align-items: center;
+  }
+
+  & .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    /* border-color: #d9e5ed !important; */
+    border-radius: 15px;
+    border: 0;
+    background-color: rgb(103 139 255 / 20%);
+  }
+
+  & .ant-select-single:not(.ant-select-customize-input) .ant-select-selector,
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    height: 32px !important;
+  }
+}
+
+/* spli grid chart pagination css ends here*/

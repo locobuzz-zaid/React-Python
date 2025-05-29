@@ -1,0 +1,43 @@
+.custom-breadcrum-header {
+  background-color: #fff;
+  padding: 0 24px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  margin-top: 60px;
+}
+
+.header {
+  background-color: #f0f2f5;
+  padding: 0 24px;
+}
+
+.breadcrumb {
+  color: #707070;
+  font-weight: 500;
+}
+
+.current-page {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.filter-row {
+  background-color: #f9f0ff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.ant-card {
+  border-radius: 8px;
+}
+
+.ant-card-body {
+  padding: 16px;
+}
+
+.ant-tag {
+  border-radius: 16px;
+}

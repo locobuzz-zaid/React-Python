@@ -1,0 +1,1219 @@
+/* Back button */
+.sign-up-nav {
+  position: absolute;
+  left: 30%;
+  top: -10%;
+  display: flex;
+}
+.sign-up-back-button {
+  display: flex;
+  position: absolute;
+  top: 80px;
+  left: 10%;
+
+  font-size: 16px;
+  color: var(--text-color-1);
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  font-weight: 700;
+  background: none;
+  border: none;
+  outline: none;
+}
+.sign-up-back-button-icon {
+  margin-right: 10px;
+}
+.sign-up-back-button:hover {
+  border: none;
+  outline: none;
+}
+.sign-up-back-button:active {
+  border: none;
+  outline: none;
+}
+.sign-up-back-button:focus {
+  border: none;
+  outline: none;
+}
+
+/* Sign Up Page CSS Start */
+.sign-up-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  /* overflow: scroll;
+  overflow-x: hidden; */
+}
+.sign-up-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  height: calc(100vh - 60px);
+  background: var(--bg-color-1);
+}
+.sign-up-pop-up {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  height: 100vh;
+  margin-top: 115px;
+}
+.sign-up-heading {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: left;
+  color: var(--text-color-1);
+}
+.sign-up-heading-bold {
+  text-transform: capitalize;
+}
+.sign-up-sub-heading {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.10000000149011612px;
+  text-align: left;
+  margin-top: -20px;
+  color: var(--text-color-2);
+}
+
+.sign-up-para-text {
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  text-align: center;
+  color: var(--text-color-1);
+}
+.sign-up-para-text-link {
+  color: var(--text-color-3);
+  cursor: pointer;
+}
+
+.sign-up-input-label {
+  color: var(--text-color-1);
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  margin-bottom: 3px;
+}
+.sign-up-input {
+  height: 53px;
+  padding: 10px 16px 10px 16px;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--input-bg-color);
+  outline: none;
+  border: 1px solid var(--input-border-color);
+  margin-bottom: 20px;
+  height: 45px;
+  color: var(--text-color-1);
+}
+.sign-up-input-error {
+  height: 53px;
+  padding: 10px 16px 10px 16px;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--input-bg-color);
+  outline: none;
+  border: 2px solid var(--input-error-color);
+  margin-bottom: 20px;
+  height: 45px;
+  color: var(--text-color-1);
+}
+.sign-up-validation-error {
+  color: var(--input-error-color);
+  text-align: left;
+  margin-top: -15px;
+}
+.sign-up-select-input {
+  border-radius: 12px;
+  background: var(--input-bg-color);
+  width: 100%;
+  height: 45px;
+  color: var(--text-color-1);
+  text-align: left;
+  border: 1px solid var(--input-bg-color);
+  margin-bottom: 20px;
+}
+.sign-up-select-input .ant-select-selector {
+  border-radius: 12px !important;
+  height: 45px !important;
+  background: var(--input-bg-color) !important;
+  border: 1px solid var(--input-bg-color) !important;
+}
+
+.sign-up-select-input-error {
+  border-radius: 12px;
+  background: var(--input-bg-color);
+  width: 100%;
+  height: 45px;
+  color: var(--text-color-1);
+  text-align: left;
+  border: 2px solid var(--input-error-color);
+  margin-bottom: 20px;
+}
+.sign-up-select-input-error .ant-select-selector {
+  border-radius: 12px !important;
+  height: 42px !important;
+  background: var(--input-bg-color) !important;
+  border: 1px solid var(--input-bg-color) !important;
+}
+/* end */
+
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.otp_btn .send-otp_btn {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border-radius: 12px;
+  font-weight: 500;
+  height: 45px;
+  border: 1px solid var(--text-color-3);
+  border-radius: 20px;
+}
+.send-otp_btn:hover {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border-radius: 12px;
+  font-weight: 500;
+  height: 45px;
+  border: 1px solid var(--text-color-3);
+  border-radius: 20px;
+}
+.cancel-payment-btn {
+  margin-top: 10px;
+  background: var(--bg-color-1);
+  color: var(--text-color-1);
+  border-radius: 12px;
+  font-weight: 500;
+  height: 45px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 20px;
+}
+.cancel-payment-btn:hover {
+  background: var(--bg-color-1);
+  color: var(--text-color-1);
+  border: 1px solid var(--input-border-color);
+}
+
+.send-otp_btn::after {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border-radius: 12px;
+  font-weight: 500;
+  height: 45px;
+  border: 1px solid var(--text-color-3);
+  border-radius: 20px;
+}
+.re-send-otp_btn_container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  margin-top: -25px;
+}
+.re-send-otp_btn {
+  color: var(--text-color-3);
+  font-weight: 500;
+  cursor: pointer;
+  width: 50%;
+  text-align: right;
+  margin-left: 10px;
+}
+.re-send-otp_btn_disabled {
+  color: var(--text-color-1);
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0.5;
+  pointer-events: none;
+  width: 50%;
+  text-align: right;
+  margin-left: 10px;
+}
+.re-send-otp_timer {
+  font-weight: 700;
+  width: 50%;
+  text-align: left;
+  margin-right: 10px;
+  color: var(--text-color-1);
+}
+.re-send-otp_timer-text {
+  font-weight: 500;
+  width: 50%;
+  text-align: right;
+  margin-right: 10px;
+  color: var(--resend-otp-text-color);
+  font-style: italic;
+}
+
+.sign-in-password-input {
+  height: 53px;
+  padding: 10px 16px 10px 16px;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--input-bg-color);
+  outline: none;
+  margin-bottom: 20px;
+  height: 45px;
+  color: var(--text-color-1);
+  border: 1px solid var(--input-border-color);
+}
+.sign-in-password-input-error {
+  height: 53px;
+  padding: 10px 16px 10px 16px;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--input-bg-color);
+  outline: none;
+  margin-bottom: 20px;
+  height: 45px;
+  color: var(--text-color-1);
+  border: 2px solid var(--input-error-color);
+}
+
+.sign-in-password-input.ant-input-password:hover {
+  /* box-shadow: none !important; */
+  border: 1px solid var(--input-border-hover) !important;
+}
+.sign-in-password-input.ant-input-password:focus {
+  /* box-shadow: none !important; */
+  border: 1px solid var(--input-border-hover) !important;
+}
+
+.sign-in-forgot-password-text {
+  text-align: right;
+  color: var(--text-color-3);
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: -15px;
+  margin-bottom: 20px;
+}
+.password-show-icon {
+  color: var(--input-password-icon);
+}
+.password-validation-error-parent {
+  text-align: left;
+  color: green;
+  padding: 10px 0;
+  list-style-type: none;
+}
+.password-validation-error {
+  color: var(--text-color-1);
+}
+/* Sign Up Page CSS End */
+
+/* OTP Page CSS Start */
+.otp-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* width: 450px; */
+}
+.otp-pop-up {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* text-align: center; */
+  width: 450px;
+}
+.otp-heading {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 0px;
+  text-align: center;
+  color: var(--text-color-1);
+}
+.otp-sub-heading {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.10000000149011612px;
+  text-align: center;
+  margin-top: 0px;
+  color: var(--text-color-1);
+}
+.email-text-heading {
+  color: var(--text-color-2);
+}
+.otp-input {
+  height: 53px;
+  padding: 10px 16px 10px 16px;
+  gap: 10px;
+  border-radius: 12px;
+  background-color: var(--bg-color-1);
+  outline: none;
+  border: 1px solid var(--input-bg-color);
+  margin-bottom: 10px;
+  height: 45px;
+}
+.sign_up_dark_btn {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border: 1px solid var(--text-color-3);
+  font-weight: 500;
+  height: 45px;
+  border-radius: 20px;
+  width: 100%;
+}
+.sign_up_dark_btn:hover {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border: 1px solid var(--text-color-3);
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+}
+.sign_up_dark_btn:disabled {
+  background: var(--disabled-button-bg-color);
+  color: var(--bg-color-1);
+  border: 1px solid var(--disabled-button-bg-color);
+}
+/* Verified Button */
+.sign_up_verified_btn {
+  background: #16c896;
+  color: var(--bg-color-1);
+  border: 1px solid #16c896;
+  font-weight: 500;
+  height: 45px;
+  border-radius: 20px;
+  width: 100%;
+}
+.sign_up_verified_btn:hover {
+  background: #16c896;
+  color: var(--bg-color-1);
+  border: 1px solid #16c896;
+}
+.sign_up_verified_btn:focus {
+  background: #16c896;
+  color: var(--bg-color-1);
+  border: 1px solid #16c896;
+}
+
+/* Otp Part */
+.otpinput-container {
+  display: flex;
+  justify-content: start;
+  margin-left: -5px;
+}
+.otpinput {
+  width: 50px;
+  height: 50px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid var(--input-bg-color);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  background: var(--input-bg-color);
+  margin: 12px;
+  color: var(--text-color-1);
+
+  &:focus {
+    border: 1px solid lightgrey;
+  }
+}
+
+.otpinput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* Sign Up CSS End */
+
+.drag_sign_up_dark_btn {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border: 1px solid var(--text-color-3);
+  font-weight: 500;
+  height: 45px;
+  border-radius: 20px;
+  width: 93%;
+  margin-top: 10px;
+}
+.drag_sign_up_dark_btn:hover {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border: 1px solid var(--text-color-3);
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* Sign in CSS Start */
+.sign-in-pop-up {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  /* height: 100vh; */
+  margin-top: 120px;
+}
+.sign-in-heading {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: left;
+  color: var(--text-color-1);
+}
+.sign-in-pop-up-img {
+  height: auto;
+  margin-bottom: 30px;
+}
+
+/* Sign-up-stepper-section start */
+.sidebar {
+  background: var(--bg-stepper-sidebar);
+  padding: 20px;
+  width: 100%;
+  max-width: 25%;
+}
+.sign-up-stepper-section-logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 300px;
+  margin-top: 70px;
+}
+.step {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  height: 80px;
+}
+.step-icon {
+  width: 30px;
+  height: 30px;
+  background: var(--bg-color-1);
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  border: 2px solid var(--stepper-non-active-icon-border-color);
+  margin-right: 10px;
+  z-index: 1;
+}
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--stepper-non-active-title-color);
+
+  font-family: Noto Sans;
+  line-height: 28px;
+  letter-spacing: 0%;
+}
+.step-title.active {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--stepper-active-title-color);
+
+  font-family: Noto Sans;
+  line-height: 28px;
+  letter-spacing: 0%;
+}
+
+.step-description {
+  font-size: 12px;
+  margin: 0;
+  color: var(--stepper-non-active-title-color);
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+.step-description.active {
+  font-size: 12px;
+  margin: 0;
+  color: var(--stepper-active-title-color);
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+.step-line {
+  position: absolute;
+  left: 14px;
+  top: 35px;
+  height: 55px;
+  width: 2px;
+  border-left: 2px dotted var(--stepper-line-color);
+}
+.step.active .step-icon {
+  color: var(--bg-color-1);
+  border-color: var(--stepper-active-icon-border-color);
+}
+.sign-up-stepper-section-checked-icon {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+}
+/* New End */
+
+/* first page start */
+.sign-up-parent-section {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+.sign-up-left-section {
+  width: 60% !important;
+  background: url("../../../assets/Pages/sign_up_bg_img.png") no-repeat center
+    center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: black;
+  text-align: center;
+}
+.sign-up-logo {
+  font-size: 22px;
+  font-weight: bold;
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  cursor: pointer;
+}
+.sign-up-logo-icon {
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.sign-up-left-section-content {
+  width: 500px;
+}
+.sign-up-left-section-content h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 50px;
+  font-family: Noto Sans;
+  text-align: left;
+}
+.sign-up-left-section-bold {
+  font-weight: bold;
+  font-size: 70px;
+  font-weight: 700;
+  font-family: Noto Sans;
+}
+.sign-up-left-section-content p {
+  font-size: 14px;
+  margin-top: 10px;
+  width: 70%;
+  color: var(--stepper-active-title-color);
+  text-align: left;
+
+  font-family: Noto Sans;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+.sign-up-star-img {
+  width: 65px;
+  height: 65px;
+  margin-top: -15px;
+  margin-left: 10px;
+}
+
+.sign-up-right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  background: var(--bg-color-1);
+  padding: 20px;
+  width: 25% !important;
+}
+/* first page end */
+
+/* Account Set Up Start */
+.frame {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--bg-color-1);
+  margin-top: 50px;
+}
+.content-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+.content-wrapper-heading {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: center;
+  color: var(--text-color-1);
+}
+.content-wrapper-sub-heading {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.10000000149011612px;
+  text-align: center;
+  margin-top: -20px;
+  color: var(--text-color-2);
+  padding-left: 120px;
+  padding-right: 120px;
+}
+.content-wrapper-para {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.10000000149011612px;
+  text-align: right;
+  margin-top: 40px;
+  color: var(--text-color-5);
+  font-style: italic;
+}
+
+.account-setup-input {
+  background: #fff;
+  border: 1px solid #fff;
+  color: var(--text-color-1);
+  height: 50px;
+  padding-left: 15px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: -15px;
+  margin-bottom: -15px;
+}
+.account-setup-input:hover {
+  background: #fff;
+  outline: none;
+  border: none;
+}
+.account-setup-input:focus,
+.account-setup-input.ant-input:focus {
+  border: none !important; /* Remove border */
+  outline: none !important; /* Remove outline */
+  box-shadow: none !important; /* Remove Ant Design focus shadow */
+}
+.account-setup-input-wrapper:focus-within {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.add-company {
+  text-align: left;
+  color: var(--text-color-3);
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: -15px;
+  width: 140px;
+}
+.add-company-disabled {
+  text-align: left;
+  color: lightgrey;
+  padding: 16px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: -15px;
+  width: 140px;
+}
+.sign_up_launch_btn {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border: 1px solid var(--text-color-3);
+  font-weight: 500;
+  height: 45px;
+  border-radius: 20px;
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sign_up_launch_btn:hover {
+  background: var(--text-color-3);
+  color: var(--bg-color-1);
+  border: 1px solid var(--text-color-3);
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+}
+.sign_up_launch_btn:disabled {
+  background: var(--disabled-button-bg-color);
+  color: var(--bg-color-1);
+  border: 1px solid var(--disabled-button-bg-color);
+}
+.account-setup-profile-icons-div {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  background: green;
+}
+.account-setup-profile-icons {
+  width: 18px;
+  height: 18px;
+}
+
+/* Simplified table styles */
+.table-wrapper {
+  margin-bottom: 30px;
+  border: 1px solid var(--input-border-stroke);
+  border-radius: 16px;
+  overflow: hidden;
+  overflow: visible;
+}
+.ant-table-wrapper {
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+.ant-table-wrapper:hover {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  /* background-color: red !important; */
+}
+.ant-table-thead > tr > th {
+  background: var(--bg-color-1);
+  color: var(--text-color-1);
+  font-weight: 600;
+}
+.ant-table-tbody > tr > td {
+  padding: 12px 2px;
+}
+.hover-row:hover td {
+  background-color: #f4f6f9 !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Select styles */
+.select-wrapper {
+  position: relative;
+}
+.ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+.ant-select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 11px;
+  transform: translateY(-50%);
+}
+
+/* Start */
+/* Add this in your global CSS or a CSS module */
+.account-setup-dropdown .ant-select-selection-search-input {
+  padding-left: 6px !important;
+  padding-top: 3px !important;
+}
+/* Customize the dropdown container */
+.account-setup-dropdown .ant-select-dropdown {
+  background-color: #fff !important; /* Light gray background */
+  border-radius: 8px !important; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+/* Style each option */
+.account-setup-dropdown .ant-select-item {
+  padding: 10px 16px !important; /* Add more spacing */
+  font-size: 16px !important;
+  color: #707070 !important;
+  transition: background 0.3s ease !important;
+}
+/* Hover effect */
+.account-setup-dropdown .ant-select-item:hover {
+  background: #f5f5f5 !important;
+  color: #707070 !important;
+}
+/* Selected item */
+.account-setup-dropdown .ant-select-item-option-selected {
+  background: #e6f7ff !important;
+  color: #707070 !important;
+  font-weight: bold !important;
+}
+/* End */
+
+/* Style normal dropdown options */
+.profile-icons-div {
+  display: flex;
+  background: #f4f6f9;
+  padding: 5px 10px;
+  gap: 7px;
+  border-radius: 9.333px;
+  align-self: center;
+  margin-left: 15px;
+  width: 95px;
+}
+
+/* Delete Icon CSS Start */
+/* Ensure the table allows content to extend outside */
+.ant-table-content {
+  overflow: visible !important;
+}
+/* Ensure each table row allows absolute positioning */
+.ant-table-row {
+  position: relative;
+  overflow: visible; /* Ensure content inside is not hidden */
+}
+/* Ensure delete icon wrapper is visible */
+.delete-icon-wrapper {
+  position: absolute;
+  right: -45px; /* Adjust this value to move it inside the row */
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+  background: #fef4e3;
+  padding: 6px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.delete-icon {
+  /* width: 15px;
+  height: 15px; */
+}
+/* Show delete icon when hovering over the row */
+.hover-row:hover .delete-icon-wrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Add this to your stylesheet or CSS module */
+.custom-popconfirm .ant-btn-primary {
+  background-color: #1657c8 !important; /* Your desired color */
+  border-color: #1657c8 !important;
+}
+/* Optional: hover effect */
+.custom-popconfirm .ant-btn-primary:hover {
+  background-color: #1657c8 !important;
+  border-color: #1657c8 !important;
+}
+/* Delete Icon CSS End */
+
+.avatar-group {
+  display: flex;
+  align-items: center;
+}
+.avatar-group img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-left: -10px;
+}
+.account-handle-text {
+  color: #707070;
+  font-size: 12px;
+  font-family: "Noto Sans";
+  font-weight: 400;
+  word-wrap: "break-word";
+  padding: 0px 20px;
+  margin-bottom: -10px;
+  margin-top: -10px;
+}
+
+/* Account Set Up End */
+
+/* Social Profile Start */
+/* Social Profile End */
+
+/* Responsive */
+@media only screen and (min-width: 321px) {
+  @media (max-width: 920px) {
+    .sign-up-nav {
+      position: absolute;
+      left: 5px;
+      top: -2%;
+      display: flex;
+    }
+    .sign-up-back-button {
+      display: flex;
+      position: absolute;
+      top: 80px;
+      left: 10%;
+
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      padding: 5px 10px;
+      font-weight: 700;
+    }
+    .sign-up-stepper-section-logo {
+      font-size: 16px;
+      margin-left: 0px;
+    }
+    .sign-up-logo {
+      font-size: 16px;
+      position: absolute;
+      top: 15px;
+      left: 20px;
+    }
+    .sign-up-logo-icon {
+      margin-right: 5px;
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Stepper Start */
+    .stepper {
+      padding: 30px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      height: 60px;
+    }
+    .step-icon {
+      width: 25px;
+      height: 25px;
+      font-size: 16px;
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-size: 13px;
+    }
+    .step-title.active {
+      font-size: 13px;
+    }
+
+    .step-description {
+      font-size: 11px;
+    }
+    .step-description.active {
+      font-size: 11px;
+    }
+    .step-line {
+      position: absolute;
+      left: 14px;
+      top: 35px;
+      height: 40px;
+      width: 2px;
+      border-left: 2px dotted var(--stepper-line-color);
+    }
+    .step.active .step-icon {
+      color: white;
+      border-color: var(--stepper-active-icon-border-color);
+    }
+    .sign-up-stepper-section-checked-icon {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+    }
+    /* Stepper End */
+
+    .sign-up-parent-section {
+      display: block;
+      width: 100%;
+      height: 100vh;
+      overflow: scroll;
+    }
+
+    .sign-up-left-section {
+      width: 100% !important;
+      width: 100vw !important; /* Ensures it takes full viewport width */
+      min-width: 100%; /* Ensures it does not shrink */
+    }
+    .sign-up-right-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      background: var(--bg-color-1);
+      padding: 20px;
+      width: 100% !important;
+    }
+
+    .sign-up-left-section-content {
+      width: 100%;
+      margin-top: 70px;
+      margin-bottom: 20px;
+    }
+    .sign-up-left-section-content h1 {
+      font-size: 20px;
+    }
+    .sign-up-left-section-bold {
+      font-size: 40px;
+    }
+    .sign-up-left-section-content p {
+      font-size: 12px;
+    }
+    .sign-up-star-img {
+      width: 5px !important;
+      height: 5px !important;
+      margin-top: -15px;
+      margin-left: 10px;
+    }
+
+    .sidebar {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* Old */
+    .sign-in-pop-up {
+      display: flex;
+      flex-direction: column;
+      width: 450px;
+      /* height: 100vh; */
+      margin-top: 20px;
+    }
+    .sign-in-heading {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 20px;
+      text-align: left;
+      color: var(--text-color-1);
+      margin-left: 10%;
+      margin-bottom: 30px;
+      width: 80%;
+    }
+    .sign-up-pop-up {
+      display: flex;
+      flex-direction: column;
+      width: 450px;
+      height: 100vh;
+      margin-top: 20px;
+    }
+    .sign-up-heading {
+      font-size: 20px;
+      line-height: 30px;
+      width: 80%;
+      margin-left: 10%;
+    }
+    .sign-up-sub-heading {
+      font-size: 14px;
+      width: 80%;
+      margin-left: 10%;
+    }
+    .sign-up-input-label {
+      color: var(--text-color-1);
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+      margin-bottom: 3px;
+      margin-left: 10%;
+    }
+    .sign-up-input {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    .sign-up-input-error {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    .sign-up-validation-error {
+      margin-left: 12%;
+    }
+    .sign-in-password-input {
+      display: flex;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sign-in-password-input-error {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .send-otp_btn {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    .re-send-otp_btn_container {
+      width: 100%;
+    }
+    .re-send-otp_btn {
+      margin-left: 30px;
+    }
+    .re-send-otp_btn_disabled {
+      margin-left: 30px;
+    }
+    .re-send-otp_timer {
+      margin-right: 30px;
+    }
+
+    .otp-heading {
+      font-size: 25px;
+    }
+    .otp-sub-heading {
+      font-size: 14px;
+    }
+    .otpinput-container {
+      display: flex;
+      justify-content: start;
+      margin-left: -5px;
+      width: 80%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .otpinput {
+      width: 35px;
+      height: 35px;
+      font-size: 14px;
+      margin: 2px;
+    }
+    .sign_up_otp_btn {
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    .sign_up_dark_btn {
+      height: 45px;
+      width: 80%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sign-in-forgot-password-text {
+      text-align: right;
+      margin-top: -15px;
+      margin-bottom: 20px;
+      margin-right: 12%;
+    }
+  }
+}

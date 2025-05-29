@@ -1,0 +1,62 @@
+.content-section {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  gap: 2%;
+}
+
+.content-column {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  width: 49%;
+}
+.content-column.linkedin {
+  background: #eaf8ff;
+}
+.content-column.twitter {
+  background: #f3f5f7;
+}
+
+/* For Tabs Section */
+.content-section-tab {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  gap: 2%;
+}
+.content-column-tab {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.content-column.linkedin-tab {
+  background: #eaf8ff;
+}
+.content-column.twitter-tab {
+  background: #f3f5f7;
+}
+
+.content-header {
+  padding: 10px;
+}
+
+.content-item {
+  background: #fff;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px;
+}
+
+.ant-typography {
+  margin-bottom: 8px;
+}
+
+/* View All */
+.curated-news-tabs .ant-tabs-tab {
+  min-width: 180px; /* or any value you want */
+  justify-content: center;
+  font-weight: bold;
+}

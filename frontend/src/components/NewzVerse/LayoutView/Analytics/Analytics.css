@@ -1,0 +1,81 @@
+.analytics-text-heading {
+  color: #1a1a1a;
+  font-family: "Lora";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.grid-brand-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  margin-right: 5px;
+}
+
+.threshold-card-text {
+  color: #707070;
+  font-size: 12;
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 500;
+  padding: 0px 15px;
+}
+.threshold-card {
+  border: 1px dashed #ddd;
+  padding: 16px;
+  margin: 15px 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.threshold-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.threshold-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.threshold-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.threshold-badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: white;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.threshold-badge.low {
+  background-color: #e3ffe4;
+  color: #4caf50;
+}
+
+.threshold-badge.medium {
+  background-color: #fff1db;
+  color: #ff9c07;
+}
+
+.threshold-badge.high {
+  background-color: #ffe9e3;
+  color: #f44336;
+}
+
+.threshold-range {
+  font-size: 12px;
+  color: #1a1a1a;
+  font-family: "Noto Sans";
+  font-weight: 500;
+}

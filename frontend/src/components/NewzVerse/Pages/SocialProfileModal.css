@@ -1,0 +1,210 @@
+.social_profile_container .ant-modal-content {
+  border-radius: 14px;
+}
+.social_profile_container .ant-modal-body {
+  background: var(--bg-color-1) !important;
+  border-radius: 12px;
+}
+.social_profile_container .ant-modal-close-x {
+  color: var(--text-color-1);
+}
+.social_profile_container {
+  width: 45% !important;
+}
+
+.social_profile_container .ant-modal-body {
+  padding: 12px 24px 2px 24px;
+}
+
+.sr-container {
+  background: var(--bg-color-1);
+  padding: 0px;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 500px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+.description {
+  display: block;
+  margin-bottom: 24px;
+  color: #707070;
+}
+
+.social-section {
+  margin-bottom: 24px;
+}
+.section-header {
+  margin-bottom: 16px;
+}
+.section-icon {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+/* Pills Start */
+.recommendation-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recommendation-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0px 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1 1 calc(25% - 16px);
+  max-width: 250px;
+  background-color: #fff;
+  line-height: 1.1;
+  height: 45px;
+}
+
+.recommendation-pill:hover {
+  border-color: #1677ff;
+}
+
+.recommendation-pill.selected {
+  background-color: #e6f4ff;
+  border-color: #1677ff;
+}
+
+.recommendation-pill-input {
+  composes: recommendation-pill;
+  min-width: 200px;
+  height: 45px;
+}
+
+.recommendation-pill-input:hover,
+.recommendation-pill-input:focus {
+  border-color: #1677ff !important;
+}
+
+.recommendation-pill-input.selected {
+  background-color: var(--bg-color-1);
+}
+
+.recommendation-pill-delete-profile-icon {
+  background: #edf2f6;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: -10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommendation-pill-loader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0px 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1 1 calc(25% - 16px);
+  max-width: 250px;
+  background-color: #fff;
+  line-height: 1.1;
+  height: 45px;
+}
+
+.recommendation-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.recommendation-text-title {
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  /* padding-top: 8px; */
+  margin-bottom: 2px;
+}
+
+.recommendation-text-description {
+  font-size: 10px;
+  color: #999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  /* margin-top: -8px; */
+}
+/* Pills End */
+
+.add-pill {
+  justify-content: center;
+  background: var(--bg-color-1);
+  cursor: pointer;
+}
+.save-button-divider {
+  border: 1px solid var(--input-border-stroke);
+}
+.save-button {
+  border: 1px solid var(--text-color-3);
+  border-radius: 20px;
+  color: var(--text-color-3);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: -20px;
+}
+.save-button:hover {
+  color: var(--text-color-3);
+  background: transparent;
+  border: 1px solid var(--text-color-3);
+}
+.save-button:disabled {
+  color: var(--bg-color-1);
+  background: var(--disabled-button-bg-color);
+  border: 1px solid var(--disabled-button-bg-color);
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.shake-alert {
+  color: #f44336;
+  margin-top: 8px;
+  animation: shake 0.4s;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  font-style: italic;
+}

@@ -1,0 +1,77 @@
+// @import url(https://fonts.googleapis.com/css?family=Open+Sans:400|Raleway:300);
+
+// $bg-color: #eeeeee;
+// $max-width: 650px;
+
+// $colors: #fbcfcf, #d4bbee, #beeef9, #ede495, #d4bbee, #8bc1e4, #e6d2a4, #86d2c8,
+//   #ebc584, #b3d370;
+// @for $i from 1 through 10 {
+//   .card-#{$i} {
+//     $card-color: nth($colors, $i);
+//     $card-color-light: lighten($card-color, 15%);
+//     $card-color-dark: darken($card-color, 5%);
+
+//     &:before,
+//     &:after {
+//       border-radius: 5px;
+//     }
+
+//     &:before {
+//       background-color: $card-color !important;
+//     }
+
+//     .title,
+//     &:after {
+//       background-color: $card-color-dark !important;
+//     }
+//   }
+// }
+
+$animation-timing: 0.3s;
+$animation-ease: ease-in-out;
+$animation-ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+[class*="stacked--"] {
+  position: relative;
+  transition: transform $animation-timing $animation-ease;
+  will-change: transform;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transition: transform $animation-timing $animation-ease;
+    will-change: transform;
+    border-radius: 6px;
+  }
+
+  &:before {
+    z-index: -1;
+  }
+
+  &:after {
+    z-index: -2;
+  }
+}
+
+.stacked--up {
+  &:before,
+  &:after {
+    transform-origin: center bottom;
+  }
+
+  &:hover {
+    transform: translate(0, -5px);
+
+    &:before {
+      transform: translate(0, 5px) scale(0.95);
+    }
+    &:after {
+      transform: translate(0, 10px) scale(0.9);
+    }
+  }
+}

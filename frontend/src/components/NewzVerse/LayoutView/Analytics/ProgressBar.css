@@ -1,0 +1,50 @@
+.sentiment-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+  }
+  
+  .sentiment-bar {
+    display: flex;
+    height: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+  
+  .segment {
+    height: 100%;
+  }
+  
+  .segment-negative {
+    background-color: #f44336; /* red */
+  }
+  
+  .segment-neutral {
+    background-color: #ff9800; /* orange */
+  }
+  
+  .segment-positive {
+    background-color: #4caf50; /* green */
+  }
+  
+  .sentiment-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .label-negative {
+    color: #F44336;
+  }
+  
+  .label-neutral {
+    color: #FF9C07;
+  }
+  
+  .label-positive {
+    color: #4CAF50;
+  }
+  

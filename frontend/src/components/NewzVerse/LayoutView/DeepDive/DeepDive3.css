@@ -1,0 +1,70 @@
+/* Layout wrapper for article column */
+.row-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Initially hide icons */
+.hover-icons {
+  display: none;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Show icons only when the row is hovered */
+.ant-table-row:hover .hover-icons {
+  display: flex;
+}
+
+/* Custom Table CSS Start */
+.custom-table .ant-table-container {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: #e6f0ff;
+  font-weight: 600;
+  color: #000;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.custom-table .ant-table-tbody > tr:hover > td {
+  background-color: #fafafa;
+}
+
+.custom-table .row-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.custom-table .article-ellipsis {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+  max-width: 500px;
+}
+
+.custom-table .hover-icons {
+  display: flex;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.icon-action {
+  margin-inline: 6px;
+  cursor: pointer;
+  color: #595959;
+}
+
+.icon-action:hover {
+  color: #1677ff;
+}
+/* Custom Table CSS End */
