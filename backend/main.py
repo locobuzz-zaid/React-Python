@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Body
 from . import  models
 from .database import engine
 from  .routers import blog, user, authentication
@@ -6,6 +6,12 @@ from pydantic import BaseModel
 import time
 import random
 from fastapi.middleware.cors import CORSMiddleware
+
+from fastapi.responses import StreamingResponse
+import pandas as pd
+import io
+from typing import Dict, List, Any
+import json
 
 app = FastAPI()
 
@@ -24,42 +30,46 @@ app.include_router(authentication.router)
 app.include_router(blog.router)
 app.include_router(user.router)
 
-# data = []
+@app.post("/api/upload-excel")
+async def upload_excel(file: UploadFile = File(...)):
+    try:
+        contents = await file.read()
+        buffer = io.BytesIO(contents)
+        
+        # Try to determine file type from the file name
+        if file.filename.endswith('.csv'):
+            df = pd.read_csv(buffer)
+        else:
+            df = pd.read_excel(buffer)
+        
+        # Convert DataFrame to dict for JSON response
+        data_dict = df.to_dict(orient='records')
+        headers = df.columns.tolist()
+        
+        return {"data": data_dict, "headers": headers}
+    except Exception as e:
+        print(f"Error processing file: {str(e)}")  # Add logging
+        raise HTTPException(status_code=400, detail=f"Could not process file: {str(e)}")
 
-# @app.get("/")
-# def root():
-#     return {"message": "Welcome to the FastAPI application!"}
-
-# @app.get("/data")
-# def get_data():
-#     return data
-
-# class Item(BaseModel):
-#     name: str
-
-# Add data to the list with uquie id
-# @app.post("/add-data")
-# def post_data(item: Item):
-#     # if item in data:
-#     #     return {"message": "Item already exists", "item": item}
-#     id = random.randint(1, 1000)
-#     data.append({"id": id, "name": item.name})
-#     return data
-
-# @app.delete("/delete-data/{item}")
-# def delete_data(item: str):
-#     if item not in data:
-#         return {"message": "Item not found", "item": item}
-#     data.remove(item)
-#     return {"message": "Item deleted successfully", "item": item}
-
-# @app.put("/update-data/{old_item}")
-# def update_data(old_item: str, new_item: str):
-#     if old_item not in data:
-#         return {"message": "Item not found", "old_item": old_item}
-#     if new_item in data:
-#         return {"message": "New item already exists", "new_item": new_item}
-#     index = data.index(old_item)
-#     data[index] = new_item
-#     return {"message": "Item updated successfully", "old_item": old_item, "new_item": new_item}
+@app.post("/api/export-excel")
+async def export_excel(data: Dict[str, Any] = Body(...)):
+    try:
+        df = pd.DataFrame(data.get("data", []))
+        file_name = data.get("fileName", "exported-data")
+        
+        # Create an Excel file in memory
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            df.to_excel(writer, sheet_name='Sheet1', index=False)
+        
+        output.seek(0)
+        
+        # Return the Excel file as a streaming response
+        return StreamingResponse(
+            output,
+            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            headers={"Content-Disposition": f"attachment; filename={file_name}.xlsx"}
+        )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Could not export data: {str(e)}")
 

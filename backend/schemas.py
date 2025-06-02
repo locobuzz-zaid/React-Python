@@ -14,6 +14,7 @@ class User(BaseModel):
     name:str
     email:str
     password:str
+    otp: Optional[str] = None
 
 class ShowUser(BaseModel):
     name:str
