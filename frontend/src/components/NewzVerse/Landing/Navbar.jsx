@@ -147,7 +147,7 @@ const Navbar = ({
       <div className="container1">
         <div className="navbar-desktop-logo" onClick={handleLandingPage}>
           <img className="navbar-desktop-logo-icon" src={NVlogo} />
-          NewzVerse
+          Analytics.AI
         </div>
 
         <div className={`nav-elements  ${showNavbar && "active"}`}>

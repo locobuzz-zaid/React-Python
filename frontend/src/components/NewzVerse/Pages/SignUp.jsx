@@ -13,8 +13,10 @@ import {
 } from "../../../redux/actions/NewzVerse/NewzVerse";
 import {
   createAccountAPI,
+  createUserAPI,
   getAiEmailInfoAPI,
   signUpAPI,
+  signUpGenerateOtpAPI,
   validateOtpAPI,
 } from "../../../redux/actions/NewzVerse/NewzVerseAPI";
 import NVlogo from "../../../assets/Pages/sign_up_logo.svg";
@@ -203,7 +205,7 @@ const SignUp = () => {
     // setErrors(validatePassword(newPassword));
     setCreatePasswordError(null);
   };
-  const handleSignUpApiCall = async (event) => {
+  const verifyEmailIdApiCall = async (event) => {
     if (event.key === "Enter" || event.key === undefined) {
       const isValidEmail =
         /^(?!.*\.\.)[a-zA-Z\d](?:[\w.-]*[a-zA-Z\d])?@[a-zA-Z\d-]+(\.[a-zA-Z]{2,})+$/;
@@ -230,7 +232,8 @@ const SignUp = () => {
           email: emailAddress,
           password: password,
         };
-        dispatch(signUpAPI(payloadObj));
+        dispatch(signUpGenerateOtpAPI(payloadObj));
+        // dispatch(createUserAPI(payloadObj));
       } else {
         setEmailError("Looks like an invalid email.");
       }
@@ -280,11 +283,14 @@ const SignUp = () => {
   };
   const handleValidateOtp = () => {
     let payloadObj = {
+      name: userName,
       email: emailAddress,
+      password: password,
       otp: otpValue,
       sign_up_flow: true,
     };
-    dispatch(validateOtpAPI(payloadObj));
+    // dispatch(validateOtpAPI(payloadObj));
+    dispatch(createUserAPI(payloadObj));
   };
   const handlePaste = (e) => {
     let length = 6;
@@ -351,33 +357,8 @@ const SignUp = () => {
   return (
     <div className="sign-up-main-container custom_scroll1">
       <div className="sign-up-parent-section">
-        {signUpStep === 5 ? (
+        {signUpStep === 3 ? (
           ""
-        ) : signUpStep === 1 ? (
-          <div className="sign-up-left-section">
-            <div className="sign-up-logo" onClick={navigateToLanding}>
-              <img className="sign-up-logo-icon" src={NVlogo} />
-              NewzVerse
-            </div>
-            <div className="sign-up-left-section-content">
-              <h1>
-                Reducing the <br />
-                <span className="sign-up-left-section-bold">NOISE</span>
-                <span className="sign-up-star-img">
-                  {getDynamicSvgIcons(
-                    "sign_up_star_icon",
-                    "#1A1A1A",
-                    "65",
-                    "65"
-                  )}
-                </span>
-              </h1>
-              <p>
-                Track and Analyze real-time News from Twitter, LinkedIn, and
-                Media Houses — so you can focus on what truly matters.
-              </p>
-            </div>
-          </div>
         ) : (
           <div className="sign-up-stepper-section sidebar">
             <h2
@@ -385,7 +366,7 @@ const SignUp = () => {
               onClick={navigateToLanding}
             >
               <img className="sign-up-logo-icon" src={NVlogo} />
-              NewzVerse
+              Analytics.AI
             </h2>
             <div className="stepper">
               {steps?.map((step, index) => (
@@ -443,22 +424,12 @@ const SignUp = () => {
           className="sign-up-right-section"
           style={{ display: signUpStep === 4 ? "block" : "" }}
         >
-          {/* {signUpStep !== 1 && signUpStep !== 5 && (
-            <div className="sign-up-nav">
-              {signUpStep > 1 && (
-                <button onClick={handleBack} className="sign-up-back-button">
-                  {getDynamicSvgIcons("user_back_button", "#000", "24", "24")}{" "}
-                  Back
-                </button>
-              )}
-            </div>
-          )} */}
-
           {signUpStep === 1 ? (
             <div className="sign-up-pop-up">
-              <p className="sign-up-heading">First things first!</p>
-
-              <p className="sign-up-input-label">What’s your Name?</p>
+              <p className="sign-up-heading">
+                Welcome to Analytics.AI,{" "}
+                <span className="sign-up-heading-bold">{userName}</span>
+              </p>
               <Input
                 // ref={userNameInput}
                 className={`${
@@ -467,7 +438,6 @@ const SignUp = () => {
                 placeholder="Full Name"
                 value={userName}
                 onChange={(e) => handleChangeUserName(e)}
-                onKeyDown={(e) => handleNextStep(e, 2)}
               />
               {nameValidateError ? (
                 <p className="sign-up-validation-error">
@@ -476,30 +446,7 @@ const SignUp = () => {
               ) : (
                 ""
               )}
-              <Button
-                className="sign_up_dark_btn"
-                onClick={(e) => handleNextStep(e, 2)}
-              >
-                Continue
-              </Button>
-              <p className="sign-up-para-text">
-                Already have an account?{" "}
-                <b
-                  onClick={handleSignInPage}
-                  className="sign-up-para-text-link"
-                >
-                  Sign in
-                </b>
-              </p>
-            </div>
-          ) : signUpStep === 2 ? (
-            <div className="sign-up-pop-up">
-              <p className="sign-up-heading">
-                Welcome to NewzVerse,{" "}
-                <span className="sign-up-heading-bold">{userName}</span>
-              </p>
               <Input
-                // ref={emailAddressInput}
                 className={`${
                   emailError ? "sign-up-input-error" : "sign-up-input"
                 }`}
@@ -594,7 +541,7 @@ const SignUp = () => {
                     : false
                 }
                 className="sign_up_dark_btn"
-                onClick={handleSignUpApiCall}
+                onClick={verifyEmailIdApiCall}
                 loading={signUpLoader ? true : false}
               >
                 Verify Email ID
@@ -609,7 +556,7 @@ const SignUp = () => {
                 </b>
               </p>
             </div>
-          ) : signUpStep === 3 ? (
+          ) : signUpStep === 2 ? (
             <div className="sign-up-pop-up">
               <p className="sign-up-heading">Verify Email ID</p>
               <p className="sign-up-sub-heading">
@@ -675,14 +622,7 @@ const SignUp = () => {
                 </Button>
               )}
             </div>
-          ) : signUpStep === 4 ? (
-            <div
-              className="custom_scroll1"
-              style={{ overflow: "auto", height: "100vh" }}
-            >
-              <AccountSetup />
-            </div>
-          ) : signUpStep === 5 ? (
+          ) : signUpStep === 3 ? (
             <div className="sign-up-pop-up">
               <DotLottieReact
                 className="sign-in-pop-up-img"

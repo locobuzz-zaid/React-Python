@@ -18,6 +18,7 @@ const ChangePassword = React.lazy(() =>
 const LayoutView = React.lazy(() =>
   import("./components/NewzVerse/LayoutView/LayoutView")
 );
+const MainPage = React.lazy(() => import("./components/ExcelData/index"));
 
 const PathRoutes = () => {
   const navigate = useNavigate();
@@ -57,6 +58,8 @@ const PathRoutes = () => {
   useEffect(() => {
     if (location.pathname === "/") {
       navigate("/");
+    } else if (!p_token && location.pathname === "/excel-upload") {
+      navigate("/excel-upload");
     } else if (!p_token && location.pathname === "/sign-in") {
       navigate("/sign-in");
     } else if (!p_token && location.pathname === "/sign-up") {
@@ -192,6 +195,29 @@ const PathRoutes = () => {
             >
               <ErrorBoundary>
                 <LayoutView />
+              </ErrorBoundary>
+            </Suspense>
+          }
+        />
+
+        {/* Excel Upload */}
+        <Route
+          path="/excel-upload"
+          element={
+            <Suspense
+              fallback={
+                <div className="suspense-loader-container">
+                  <div className="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              }
+            >
+              <ErrorBoundary>
+                <MainPage />
               </ErrorBoundary>
             </Suspense>
           }

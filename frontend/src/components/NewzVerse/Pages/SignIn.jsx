@@ -145,13 +145,11 @@ const SignIn = () => {
       ) {
         setEmailError("");
         let obj = {
-          name: "DOM",
           email: emailAddress,
           password: userPassword,
         };
 
-        // dispatch(signInAPI(obj));
-        dispatch(createUserAPI(obj));
+        dispatch(signInAPI(obj));
       } else {
         setEmailError("Looks like an invalid email.");
       }
@@ -359,21 +357,10 @@ const SignIn = () => {
           <div className="sign-up-left-section">
             <div className="sign-up-logo" onClick={navigateToLanding}>
               <img className="sign-up-logo-icon" src={NVlogo} />
-              NewzVerse
+              Analytics.AI
             </div>
             <div className="sign-up-left-section-content">
-              <h1>
-                Reducing the <br />
-                <span className="sign-up-left-section-bold">NOISE</span>
-                <span className="sign-up-star-img">
-                  {getDynamicSvgIcons(
-                    "sign_up_star_icon",
-                    "#1A1A1A",
-                    "65",
-                    "65"
-                  )}
-                </span>
-              </h1>
+              <h1>Analytics.AI</h1>
               <p>
                 Track and Analyze real-time News from Twitter, LinkedIn, and
                 Media Houses — so you can focus on what truly matters.
@@ -387,7 +374,7 @@ const SignIn = () => {
               onClick={navigateToLanding}
             >
               <img className="sign-up-logo-icon" src={NVlogo} />
-              NewzVerse
+              Analytics.AI
             </h2>
             <div className="stepper">
               {steps?.map((step, index) => (

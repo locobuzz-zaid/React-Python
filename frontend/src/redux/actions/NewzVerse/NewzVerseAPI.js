@@ -508,7 +508,7 @@ export const createTwitterProfileAPI = (payloadObj) => {
   };
 };
 
-// Sign In API
+// USER Sign In API
 export const signInAPI = (payloadObj) => {
   return async (dispatch) => {
     let body = {
@@ -522,11 +522,11 @@ export const signInAPI = (payloadObj) => {
     axios
       .post(url, body)
       .then((response) => {
-        if (response?.data?.status === "successful") {
-          console.log("API SUCCESSFUL", response);
+        if (response) {
+          console.log("SIGN IN API SUCCESSFUL", response);
 
-          // localStorage.setItem("p_token", response?.data?.p_token);
-          // window.location = "/dashboard";
+          localStorage.setItem("p_token", response?.data?.access_token);
+          window.location = "/dashboard";
           dispatch(setSignUpLoader(false));
         } else {
           showToast(response?.data?.message, "error");
@@ -540,16 +540,17 @@ export const signInAPI = (payloadObj) => {
       });
   };
 };
-// Sign In API
+// CREATE USER API
 export const createUserAPI = (payloadObj) => {
   return async (dispatch) => {
     let body = {
       name: payloadObj?.name,
       email: payloadObj?.email,
       password: payloadObj?.password,
+      otp: payloadObj?.otp,
     };
 
-    let url = `http://localhost:8000/api/user`;
+    let url = `http://localhost:8000/api/create-user`;
     // let url = `${Config.config1.api_link}/auth/sign-in`;
     dispatch(setSignUpLoader(true));
     axios
@@ -561,6 +562,7 @@ export const createUserAPI = (payloadObj) => {
           // localStorage.setItem("p_token", response?.data?.p_token);
           // window.location = "/dashboard";
           dispatch(setSignUpLoader(false));
+          dispatch(setSignUpStep(3));
         } else {
           showToast(response?.data?.message, "error");
 
@@ -570,6 +572,37 @@ export const createUserAPI = (payloadObj) => {
       .catch((error) => {
         dispatch(setSignUpLoader(false));
         console.log("auth/sign-in API catch error", error);
+      });
+  };
+};
+export const signUpGenerateOtpAPI = (payloadObj) => {
+  return async (dispatch) => {
+    let body = {
+      name: payloadObj?.name,
+      email: payloadObj?.email,
+      password: payloadObj?.password,
+    };
+
+    let url = `http://localhost:8000/api/generate-otp`;
+    dispatch(setSignUpLoader(true));
+    axios
+      .post(url, body)
+      .then((response) => {
+        if (response || response?.data?.status === "successful") {
+          console.log("generate-otp response =>", response);
+          // localStorage.setItem("p_token", response?.data?.p_token);
+
+          dispatch(setSignUpLoader(false));
+          dispatch(setSignUpStep(2));
+        } else {
+          showToast(response?.data?.message, "error");
+
+          dispatch(setSignUpLoader(false));
+        }
+      })
+      .catch((error) => {
+        dispatch(setSignUpLoader(false));
+        console.log("api/generate-otp API catch error", error);
       });
   };
 };

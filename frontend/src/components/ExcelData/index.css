@@ -1,0 +1,40 @@
+.data-visualizer-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.upload-card,
+.data-card,
+.chart-card {
+  margin-bottom: 20px;
+}
+
+.chart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.chart-container {
+  min-height: 400px;
+  margin-top: 20px;
+}
+
+.export-btn,
+.export-chart-btn {
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .chart-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-controls > div {
+    margin-bottom: 10px;
+  }
+}
