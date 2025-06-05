@@ -526,7 +526,7 @@ export const signInAPI = (payloadObj) => {
           console.log("SIGN IN API SUCCESSFUL", response);
 
           localStorage.setItem("p_token", response?.data?.access_token);
-          window.location = "/dashboard";
+          window.location = "/notes";
           dispatch(setSignUpLoader(false));
         } else {
           showToast(response?.data?.message, "error");

@@ -19,6 +19,7 @@ const LayoutView = React.lazy(() =>
   import("./components/NewzVerse/LayoutView/LayoutView")
 );
 const MainPage = React.lazy(() => import("./components/ExcelData/index"));
+const Notes = React.lazy(() => import("./components/Notes/Notes"));
 
 const PathRoutes = () => {
   const navigate = useNavigate();
@@ -70,6 +71,8 @@ const PathRoutes = () => {
       navigate("/");
     } else if (p_token && location.pathname === "/dashboard") {
       navigate("/dashboard");
+    } else if (p_token && location.pathname === "/notes") {
+      navigate("/notes");
     } else {
       navigate("/");
     }
@@ -218,6 +221,29 @@ const PathRoutes = () => {
             >
               <ErrorBoundary>
                 <MainPage />
+              </ErrorBoundary>
+            </Suspense>
+          }
+        />
+
+        {/* Notes */}
+        <Route
+          path="/notes"
+          element={
+            <Suspense
+              fallback={
+                <div className="suspense-loader-container">
+                  <div className="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              }
+            >
+              <ErrorBoundary>
+                <Notes />
               </ErrorBoundary>
             </Suspense>
           }
