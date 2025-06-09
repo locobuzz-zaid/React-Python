@@ -1,0 +1,327 @@
+/* Start */
+.dashboard-container {
+  width: 100%;
+  display: flex;
+}
+
+.dashboard-left-container {
+  width: 50%;
+}
+.dashboard-right-container {
+  width: 50%;
+}
+.dashboard-themes-container {
+  width: 100%;
+}
+
+.dropping {
+  background: #fefefe;
+  transition: all 0.3s;
+}
+
+/* extra */
+.ant-layout-sider {
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 64px !important;
+  bottom: 0;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: #000;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo span {
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.ant-layout-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 0 !important;
+}
+
+.logo-header {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.logo-square {
+  width: 32px;
+  height: 32px;
+  background-color: #000;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.logo-text {
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.ant-tabs {
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+  background: white;
+}
+
+.main-content {
+  padding: 24px;
+  background: #fff;
+}
+
+.ant-card-head-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Tabs Start */
+/* Default (non-active) tabs */
+.dashboard-main-content .ant-tabs-tab {
+  background-color: #f5f5f5; /* Light gray */
+  color: black !important;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+/* Active tab */
+.dashboard-main-content .ant-tabs-tab-active {
+  background-color: black !important; /* Active background */
+  color: white !important; /* Force white text */
+  border-radius: 8px;
+}
+/* Ensure text inside active tab is white */
+.dashboard-main-content .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
+}
+/* Hover effect for better UX */
+.dashboard-main-content .ant-tabs-tab:hover {
+  background-color: #e0e0e0;
+}
+
+/* Remove default Ant Design focus/underline effect */
+.dashboard-main-content .ant-tabs-tab-btn:focus,
+.ant-tabs-tab-btn:active {
+  color: white !important;
+}
+/* Remove the bottom border of the tab navigation */
+.dashboard-main-content .ant-tabs-nav::before {
+  border-bottom: none !important;
+}
+/* Optional: Remove the underline from active tab */
+.dashboard-main-content .ant-tabs-ink-bar {
+  display: none !important;
+}
+/* Tabs End */
+
+/* Sideba Start */
+.dashboard-left-sidebar-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid #edf2f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+.sidebar-menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80px !important;
+  color: #707070;
+  margin-left: 0px !important;
+}
+.sidebar-menu-item:hover {
+  background: #fff !important;
+}
+.dashboard-left-sidebar-container
+  .ant-menu:not(.ant-menu-horizontal)
+  .ant-menu-item-selected {
+  background: #fff;
+  height: 80px;
+  color: black;
+  font-weight: 700;
+  margin-left: 0px !important;
+}
+
+.dashboard-left-sidebar-container .anticon svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.sidebar-menu-item-icon {
+  /* background-color: #fff !important; */
+  border-radius: 8px;
+  padding: 10px;
+  /* color: white !important; */
+  margin-top: 10px;
+  color: #707070;
+}
+/* Highlight only the icon's background */
+.dashboard-left-sidebar-container .ant-menu-item-selected .anticon {
+  background-color: black !important;
+  border-radius: 8px;
+  padding: 10px;
+  color: white !important;
+  margin-top: 10px;
+}
+
+.dashboard-left-sidebar-container .ant-menu-inline .ant-menu-item:after,
+.ant-menu-vertical-left .ant-menu-item:after,
+.ant-menu-vertical-right .ant-menu-item:after,
+.ant-menu-vertical .ant-menu-item:after {
+  border-right: 3px solid #fff;
+}
+
+.dashboard-left-sidebar-container
+  .ant-menu-inline.ant-menu-root
+  .ant-menu-item
+  > .ant-menu-title-content,
+.ant-menu-inline.ant-menu-root
+  .ant-menu-submenu-title
+  > .ant-menu-title-content {
+  font-size: 10px;
+  margin-left: 0px !important;
+  margin-top: -10px;
+}
+/* Sidebar End */
+
+/* Tabs Css Start */
+.dashboard-main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.sticky-tabs .ant-tabs-nav {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background: white;
+  padding-top: 10px;
+
+  border: 1px solid #edf2f6;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+  margin-top: 60px;
+  width: 100%;
+  height: 60px;
+}
+.sticky-tabs .ant-tabs-tab {
+  padding: 8px 12px !important; /* Adjust as needed */
+  margin: 0 4px !important; /* Controls the space *between* tabs */
+}
+.dashboard-main-content .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list,
+.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.tab-content {
+  /* overflow-y: auto;
+  height: calc(100vh - 150px); */
+  padding: 16px;
+  margin-top: 140px;
+}
+/* Tabs Css End */
+
+.sticky-tabs-loader-div {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+  padding-top: 10px;
+
+  border: 1px solid #edf2f6;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* Modal Css Start */
+/* CustomModal.css */
+
+.custom-modal-logout .ant-modal-content {
+  border-radius: 12px;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.custom-modal-logout .ant-modal-header {
+  border-bottom: none;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.custom-modal-logout .ant-modal-title {
+  color: #333;
+  font-size: 20px;
+  text-align: left;
+}
+
+.custom-modal-logout .ant-modal-body {
+  text-align: left;
+  font-size: 16px;
+  color: #555;
+  padding: 5px 0;
+}
+
+.custom-modal-logout .ant-modal-footer {
+  display: flex;
+  justify-content: end;
+  gap: 0px;
+  border-top: none;
+}
+
+.custom-modal-logout .ant-btn {
+  border-radius: 6px;
+  min-width: 100px;
+}
+
+.custom-modal-logout .ant-btn-primary {
+  background-color: #1677ff;
+  border-color: #1677ff;
+}
+
+.custom-modal-logout .ant-btn-primary:hover {
+  background-color: #0958d9;
+  border-color: #0958d9;
+}
+/* Modal Css End */
+
+.news-card-container .ant-card-body {
+  padding: 8px;
+  /* border-radius: 0 0 8px 8px; */
+}
+
+/* style.css or scoped inside module/styled component */
+.custom-tooltip .ant-tooltip-arrow::before,
+.custom-tooltip .ant-tooltip-arrow-content {
+  background-color: #6c757d !important; /* <-- your desired color */
+}

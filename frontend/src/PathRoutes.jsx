@@ -20,6 +20,7 @@ const LayoutView = React.lazy(() =>
 );
 const MainPage = React.lazy(() => import("./components/ExcelData/index"));
 const Notes = React.lazy(() => import("./components/Notes/Notes"));
+const DIY = React.lazy(() => import("./components/DIY/LayoutView"));
 
 const PathRoutes = () => {
   const navigate = useNavigate();
@@ -69,6 +70,8 @@ const PathRoutes = () => {
       // Do Nothing, otherwise data reset
     } else if (!p_token && location.pathname === "/dashboard") {
       navigate("/");
+    } else if (location.pathname === "/diy") {
+      navigate("/diy");
     } else if (p_token && location.pathname === "/dashboard") {
       navigate("/dashboard");
     } else if (p_token && location.pathname === "/notes") {
@@ -221,6 +224,29 @@ const PathRoutes = () => {
             >
               <ErrorBoundary>
                 <MainPage />
+              </ErrorBoundary>
+            </Suspense>
+          }
+        />
+
+        {/* DIY */}
+        <Route
+          path="/diy"
+          element={
+            <Suspense
+              fallback={
+                <div className="suspense-loader-container">
+                  <div className="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              }
+            >
+              <ErrorBoundary>
+                <DIY />
               </ErrorBoundary>
             </Suspense>
           }
