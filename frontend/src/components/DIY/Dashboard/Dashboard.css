@@ -152,3 +152,32 @@ button:focus-visible,
   color: #5a6270;
   line-height: 1.5;
 }
+
+/* Grid CSS */
+.grid-stack-item-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* Important - removes scrollbar */
+}
+
+.grid-stack-item-content .ant-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.grid-stack-item-content .ant-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 8px; /* Optional - smaller padding */
+}
+
+.grid-stack-item-content .highcharts-container {
+  flex: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+}

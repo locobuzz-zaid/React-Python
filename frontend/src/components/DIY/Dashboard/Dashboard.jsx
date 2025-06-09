@@ -161,7 +161,7 @@ const Dashboard = () => {
   useEffect(() => {
     dashboard.forEach((section, idx) => {
       if (gridRefs[idx].current && !gridRefs[idx].current.gridstack) {
-        GridStack.init(
+        const grid = GridStack.init(
           {
             float: true,
             resizable: { handles: "all" },
@@ -169,11 +169,31 @@ const Dashboard = () => {
           },
           gridRefs[idx].current
         );
+
+        // Add resizestop listener
+        grid.on("resizestop", function (event, el) {
+          // Find chart inside this grid item
+          const chartEl = el.querySelector(
+            ".highcharts-container"
+          )?.parentElement;
+          if (chartEl && chartEl.__chartRef) {
+            chartEl.__chartRef.reflow();
+          } else {
+            // fallback: trigger reflow on all charts in this grid
+            el.querySelectorAll(".highcharts-container").forEach(
+              (container) => {
+                const chartInstance = container.__chartRef;
+                if (chartInstance) chartInstance.reflow();
+              }
+            );
+          }
+        });
       }
     });
     // eslint-disable-next-line
   }, [dashboard]);
 
+  // Listen for GridStack changes
   useEffect(() => {
     dashboard.forEach((section, idx) => {
       const grid = gridRefs[idx]?.current?.gridstack;
@@ -251,7 +271,7 @@ const Dashboard = () => {
 
   // Add Chart
   const handleAddChart = (values) => {
-    const { section, chartType } = values;
+    const { section, chartType, chartName } = values;
     const idx = Number(section);
     const isSection1 = idx === 0;
     const chartsPerRow = isSection1 ? 3 : 2;
@@ -276,6 +296,7 @@ const Dashboard = () => {
                 {
                   id: newChartId,
                   type: chartType,
+                  name: chartName,
                   options: dummyChartData[chartType],
                   x,
                   y,
@@ -575,10 +596,13 @@ const Dashboard = () => {
                         >
                           <div className="grid-stack-item-content">
                             <Card
-                              title={`${
-                                chart.type.charAt(0).toUpperCase() +
-                                chart.type.slice(1)
-                              } Chart`}
+                              title={
+                                chart.name ||
+                                `${
+                                  chart.type.charAt(0).toUpperCase() +
+                                  chart.type.slice(1)
+                                } Chart`
+                              }
                               extra={
                                 <>
                                   <Button
@@ -609,6 +633,17 @@ const Dashboard = () => {
                               <HighchartsReact
                                 highcharts={Highcharts}
                                 options={chart.options}
+                                ref={(chartComponent) => {
+                                  if (chartComponent && chartComponent.chart) {
+                                    const chartInstance = chartComponent.chart;
+                                    // Store reference in parent div so GridStack listener can find it
+                                    const chartContainer =
+                                      chartInstance.renderTo?.parentElement;
+                                    if (chartContainer) {
+                                      chartContainer.__chartRef = chartInstance;
+                                    }
+                                  }
+                                }}
                               />
                             </Card>
                           </div>
@@ -645,6 +680,7 @@ const Dashboard = () => {
               ))}
             </Select>
           </Form.Item>
+
           <Form.Item
             label="Chart Type"
             name="chartType"
@@ -658,6 +694,15 @@ const Dashboard = () => {
               ))}
             </Select>
           </Form.Item>
+
+          <Form.Item
+            label="Chart Name"
+            name="chartName"
+            rules={[{ required: true, message: "Please enter chart name" }]}
+          >
+            <Input placeholder="Enter chart name" />
+          </Form.Item>
+
           <Form.Item>
             <Button type="primary" htmlType="submit" block>
               Add Chart
