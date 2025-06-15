@@ -179,7 +179,7 @@
   color: inherit;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
   max-width: calc(100% - 20px);
   font-size: 13px;
   font-weight: inherit;
@@ -326,7 +326,7 @@
 .tab-title span {
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
   flex: 1;
   min-width: 0;
   font-size: 13px;

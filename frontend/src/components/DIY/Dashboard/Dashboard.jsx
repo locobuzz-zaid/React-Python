@@ -7,6 +7,7 @@ import {
   Collapse,
   Divider,
   Modal,
+  Drawer,
   Form,
   Select,
   message,
@@ -18,6 +19,7 @@ import {
   SaveOutlined,
   DeleteOutlined,
   EditOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -28,27 +30,192 @@ const { Panel } = Collapse;
 const { Option } = Select;
 
 const chartTypes = [
-  { label: "Line", value: "line" },
-  { label: "Bar", value: "bar" },
-  { label: "Pie", value: "pie" },
-  { label: "Area", value: "area" },
-  { label: "Column", value: "column" },
+  { 
+    label: "Line Chart", 
+    value: "line", 
+    description: "Visualize trends over time",
+    color: "#1890ff",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <polyline points="22,6 13,15 8,10 2,16" strokeLinecap="round" strokeLinejoin="round"/>
+        <polyline points="16,6 22,6 22,12" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Bar Chart", 
+    value: "bar", 
+    description: "Compare different categories",
+    color: "#52c41a",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <line x1="12" y1="20" x2="12" y2="10" strokeLinecap="round"/>
+        <line x1="18" y1="20" x2="18" y2="4" strokeLinecap="round"/>
+        <line x1="6" y1="20" x2="6" y2="16" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "List View", 
+    value: "list", 
+    description: "Display data in list format",
+    color: "#722ed1",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <line x1="8" y1="6" x2="21" y2="6" strokeLinecap="round"/>
+        <line x1="8" y1="12" x2="21" y2="12" strokeLinecap="round"/>
+        <line x1="8" y1="18" x2="21" y2="18" strokeLinecap="round"/>
+        <line x1="3" y1="6" x2="3.01" y2="6" strokeLinecap="round"/>
+        <line x1="3" y1="12" x2="3.01" y2="12" strokeLinecap="round"/>
+        <line x1="3" y1="18" x2="3.01" y2="18" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Area Chart", 
+    value: "area", 
+    description: "Show data trends with filled areas",
+    color: "#13c2c2",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <polygon points="13,2 3,14 12,14 21,4" strokeLinecap="round" strokeLinejoin="round"/>
+        <polygon points="3,22 21,22 21,16 3,16" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Scatter Plot", 
+    value: "scatter", 
+    description: "Plot data points on X-Y axis",
+    color: "#faad14",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="5" cy="5" r="1" fill="currentColor"/>
+        <circle cx="12" cy="8" r="1" fill="currentColor"/>
+        <circle cx="18" cy="4" r="1" fill="currentColor"/>
+        <circle cx="8" cy="15" r="1" fill="currentColor"/>
+        <circle cx="15" cy="12" r="1" fill="currentColor"/>
+        <circle cx="20" cy="18" r="1" fill="currentColor"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Pie Chart", 
+    value: "pie", 
+    description: "Show proportional data",
+    color: "#eb2f96",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="12" r="10" strokeLinecap="round"/>
+        <polyline points="12,6 12,12 16,10" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Donut Chart", 
+    value: "doughnut", 
+    description: "Pie chart with center space",
+    color: "#f5222d",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="12" r="3" strokeLinecap="round"/>
+        <circle cx="12" cy="12" r="10" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Table View", 
+    value: "table", 
+    description: "Display data in table format",
+    color: "#9254de",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" strokeLinecap="round"/>
+        <line x1="9" y1="9" x2="21" y2="9" strokeLinecap="round"/>
+        <line x1="9" y1="15" x2="21" y2="15" strokeLinecap="round"/>
+        <line x1="3" y1="9" x2="6" y2="9" strokeLinecap="round"/>
+        <line x1="3" y1="15" x2="6" y2="15" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Calendar", 
+    value: "calendar", 
+    description: "Show data by dates",
+    color: "#1890ff",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeLinecap="round"/>
+        <line x1="16" y1="2" x2="16" y2="6" strokeLinecap="round"/>
+        <line x1="8" y1="2" x2="8" y2="6" strokeLinecap="round"/>
+        <line x1="3" y1="10" x2="21" y2="10" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  { 
+    label: "Gauge", 
+    value: "gauge", 
+    description: "Display KPI metrics",
+    color: "#52c41a",
+    svgIcon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="12" r="10" strokeLinecap="round"/>
+        <polyline points="8,12 12,8 16,12" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+  }
 ];
 
 const dummyChartData = {
   line: {
-    chart: { type: "line" },
-    title: { text: "Line Chart" },
+    chart: { 
+      type: "line",
+      height: null, // Let chart size itself
+      backgroundColor: 'transparent'
+    },
+    title: { text: "" },
     series: [{ data: [1, 3, 2, 4, 6, 3, 5], name: "Line" }],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            enabled: false
+          }
+        }
+      }]
+    }
   },
   bar: {
-    chart: { type: "bar" },
-    title: { text: "Bar Chart" },
+    chart: { 
+      type: "bar",
+      height: null,
+      backgroundColor: 'transparent'
+    },
+    title: { text: "" },
     series: [{ data: [5, 3, 4, 7, 2], name: "Bar" }],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            enabled: false
+          }
+        }
+      }]
+    }
   },
   pie: {
-    chart: { type: "pie" },
-    title: { text: "Pie Chart" },
+    chart: { 
+      type: "pie",
+      height: null,
+      backgroundColor: 'transparent'
+    },
+    title: { text: "" },
     series: [
       {
         name: "Share",
@@ -59,23 +226,67 @@ const dummyChartData = {
         ],
       },
     ],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            enabled: false
+          }
+        }
+      }]
+    }
   },
   area: {
-    chart: { type: "area" },
-    title: { text: "Area Chart" },
+    chart: { 
+      type: "area",
+      height: null,
+      backgroundColor: 'transparent'
+    },
+    title: { text: "" },
     series: [{ data: [2, 1, 3, 5, 4], name: "Area" }],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            enabled: false
+          }
+        }
+      }]
+    }
   },
   column: {
-    chart: { type: "column" },
-    title: { text: "Column Chart" },
+    chart: { 
+      type: "column",
+      height: null,
+      backgroundColor: 'transparent'
+    },
+    title: { text: "" },
     series: [{ data: [3, 2, 5, 7, 6], name: "Column" }],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            enabled: false
+          }
+        }
+      }]
+    }
   },
 };
 
 const DEFAULT_WIDTH = 4;
 const DEFAULT_HEIGHT = 4;
 
-const Dashboard = ({ dashboardId = "default" }) => {
+const Dashboard = ({ dashboardId = "default", onDashboardNameChange, initialTitle }) => {
   // Create initial dashboard with one section for first dashboard, minimal for new ones
   const createInitialDashboard = () => {
     if (dashboardId === "1") {
@@ -90,7 +301,12 @@ const Dashboard = ({ dashboardId = "default" }) => {
               name: "Performance Trends",
               options: {
                 ...dummyChartData.line,
-                title: { text: `Performance Trends - ${dashboardId}` }
+                title: { text: "" },
+                chart: {
+                  ...dummyChartData.line.chart,
+                  height: null,
+                  backgroundColor: 'transparent'
+                }
               },
               x: 0,
               y: 0,
@@ -103,7 +319,12 @@ const Dashboard = ({ dashboardId = "default" }) => {
               name: "Category Analysis",
               options: {
                 ...dummyChartData.bar,
-                title: { text: `Category Analysis - ${dashboardId}` }
+                title: { text: "" },
+                chart: {
+                  ...dummyChartData.bar.chart,
+                  height: null,
+                  backgroundColor: 'transparent'
+                }
               },
               x: 4,
               y: 0,
@@ -116,7 +337,12 @@ const Dashboard = ({ dashboardId = "default" }) => {
               name: "Market Share",
               options: {
                 ...dummyChartData.pie,
-                title: { text: `Market Share - ${dashboardId}` }
+                title: { text: "" },
+                chart: {
+                  ...dummyChartData.pie.chart,
+                  height: null,
+                  backgroundColor: 'transparent'
+                }
               },
               x: 8,
               y: 0,
@@ -134,7 +360,12 @@ const Dashboard = ({ dashboardId = "default" }) => {
               name: "Growth Trends",
               options: {
                 ...dummyChartData.area,
-                title: { text: `Growth Trends - ${dashboardId}` }
+                title: { text: "" },
+                chart: {
+                  ...dummyChartData.area.chart,
+                  height: null,
+                  backgroundColor: 'transparent'
+                }
               },
               x: 0,
               y: 0,
@@ -147,7 +378,12 @@ const Dashboard = ({ dashboardId = "default" }) => {
               name: "Monthly Revenue",
               options: {
                 ...dummyChartData.column,
-                title: { text: `Monthly Revenue - ${dashboardId}` }
+                title: { text: "" },
+                chart: {
+                  ...dummyChartData.column.chart,
+                  height: null,
+                  backgroundColor: 'transparent'
+                }
               },
               x: 6,
               y: 0,
@@ -165,7 +401,12 @@ const Dashboard = ({ dashboardId = "default" }) => {
               name: "KPI Tracking",
               options: {
                 ...dummyChartData.line,
-                title: { text: `KPI Tracking - ${dashboardId}` }
+                title: { text: "" },
+                chart: {
+                  ...dummyChartData.line.chart,
+                  height: null,
+                  backgroundColor: 'transparent'
+                }
               },
               x: 0,
               y: 0,
@@ -188,12 +429,15 @@ const Dashboard = ({ dashboardId = "default" }) => {
 
   // Dashboard state: array of sections, each with charts_list
   const [dashboard, setDashboard] = useState(createInitialDashboard);
-  const [dashboardName, setDashboardName] = useState(`Dashboard ${dashboardId}`);
+  const [dashboardName, setDashboardName] = useState(
+    initialTitle || (dashboardId === "1" ? "Analytics Overview" : `Dashboard ${dashboardId}`)
+  );
   const [dashboardDesc, setDashboardDesc] = useState(
     dashboardId === "1" ? "This is your main dashboard." : `Dashboard ${dashboardId}`
   );
-  const [addChartModal, setAddChartModal] = useState(false);
+  const [addChartDrawer, setAddChartDrawer] = useState(false);
   const [editChartModal, setEditChartModal] = useState(false);
+  const [selectedChartType, setSelectedChartType] = useState(null);
   const [addChartForm] = Form.useForm();
   const [editChartForm] = Form.useForm();
   const [editChartInfo, setEditChartInfo] = useState({
@@ -230,25 +474,64 @@ const Dashboard = ({ dashboardId = "default" }) => {
 
         // Add resizestop listener
         grid.on("resizestop", function (event, el) {
-          // Find chart inside this grid item
-          const chartEl = el.querySelector(
-            ".highcharts-container"
-          )?.parentElement;
+          // Find chart inside this grid item and trigger reflow
+          const chartEl = el.querySelector(".highcharts-container");
           if (chartEl && chartEl.__chartRef) {
-            chartEl.__chartRef.reflow();
+            setTimeout(() => {
+              chartEl.__chartRef.reflow();
+            }, 100);
           } else {
             // fallback: trigger reflow on all charts in this grid
             el.querySelectorAll(".highcharts-container").forEach(
               (container) => {
                 const chartInstance = container.__chartRef;
-                if (chartInstance) chartInstance.reflow();
+                if (chartInstance) {
+                  setTimeout(() => {
+                    chartInstance.reflow();
+                  }, 100);
+                }
               }
             );
           }
         });
+
+        // Add resize listener for window resize
+        const handleResize = () => {
+          const gridEl = gridRefs[idx].current;
+          if (gridEl) {
+            gridEl.querySelectorAll(".highcharts-container").forEach(
+              (container) => {
+                const chartInstance = container.__chartRef;
+                if (chartInstance) {
+                  setTimeout(() => {
+                    chartInstance.reflow();
+                  }, 100);
+                }
+              }
+            );
+          }
+        };
+
+        window.addEventListener('resize', handleResize);
+        
+        // Store cleanup function
+        gridRefs[idx].current._resizeCleanup = () => {
+          window.removeEventListener('resize', handleResize);
+        };
       }
     });
   }, [dashboard, gridRefs]);
+
+  // Add cleanup effect for resize listeners
+  useEffect(() => {
+    return () => {
+      gridRefs.forEach(ref => {
+        if (ref.current && ref.current._resizeCleanup) {
+          ref.current._resizeCleanup();
+        }
+      });
+    };
+  }, [gridRefs]);
 
   // Listen for GridStack changes
   useEffect(() => {
@@ -284,10 +567,11 @@ const Dashboard = ({ dashboardId = "default" }) => {
     });
   }, [dashboard, gridRefs]);
 
-  // Add Chart Modal handlers
-  const openAddChartModal = () => setAddChartModal(true);
-  const closeAddChartModal = () => {
-    setAddChartModal(false);
+  // Add Chart Drawer handlers
+  const openAddChartDrawer = () => setAddChartDrawer(true);
+  const closeAddChartDrawer = () => {
+    setAddChartDrawer(false);
+    setSelectedChartType(null);
     addChartForm.resetFields();
   };
 
@@ -300,7 +584,14 @@ const Dashboard = ({ dashboardId = "default" }) => {
 
   // Add Chart
   const handleAddChart = (values) => {
-    const { section, chartType, chartName } = values;
+    const { section, chartName } = values;
+    const chartType = selectedChartType;
+    
+    if (!chartType) {
+      message.error('Please select a chart type');
+      return;
+    }
+    
     const idx = Number(section);
     const isSection1 = idx === 0;
     const chartsPerRow = isSection1 ? 3 : 2;
@@ -326,7 +617,14 @@ const Dashboard = ({ dashboardId = "default" }) => {
                   id: newChartId,
                   type: chartType,
                   name: chartName,
-                  options: dummyChartData[chartType],
+                  options: {
+                    ...dummyChartData[chartType],
+                    chart: {
+                      ...dummyChartData[chartType].chart,
+                      height: null, // Ensure responsive height
+                      backgroundColor: 'transparent'
+                    }
+                  },
                   x,
                   y,
                   w: chartWidth,
@@ -350,7 +648,8 @@ const Dashboard = ({ dashboardId = "default" }) => {
     }, 0);
 
     addChartForm.resetFields();
-    setAddChartModal(false);
+    setAddChartDrawer(false);
+    setSelectedChartType(null);
     message.success("Chart added!");
   };
 
@@ -385,7 +684,14 @@ const Dashboard = ({ dashboardId = "default" }) => {
                   ? {
                       ...c,
                       type: chartType,
-                      options: dummyChartData[chartType],
+                      options: {
+                        ...dummyChartData[chartType],
+                        chart: {
+                          ...dummyChartData[chartType].chart,
+                          height: null, // Ensure responsive height
+                          backgroundColor: 'transparent'
+                        }
+                      },
                     }
                   : c
               ),
@@ -438,7 +744,10 @@ const Dashboard = ({ dashboardId = "default" }) => {
         <div style={{ flex: 1 }}>
           <Input
             value={dashboardName}
-            onChange={(e) => setDashboardName(e.target.value)}
+            onChange={(e) => {
+              setDashboardName(e.target.value);
+              onDashboardNameChange?.(e.target.value);
+            }}
             style={{
               fontWeight: "bold",
               fontSize: 20,
@@ -496,26 +805,19 @@ const Dashboard = ({ dashboardId = "default" }) => {
                 }
               }}
             >
-              {/* Hover Add Chart Button on Section Header */}
-              {/* <Button
-                className="hover-add-chart-btn-header"
-                type="primary"
-                size="small"
-                icon={<PlusOutlined />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openAddChartModal();
+              <Collapse 
+                defaultActiveKey={["1"]} 
+                style={{ 
+                  border: 'none', 
+                  backgroundColor: 'pink',
+                  width: '100%',
+                  height: "45px"
                 }}
-                style={{
-                  display: 'none',
-                }}
+                ghost
               >
-                Add Chart
-              </Button> */}
-
-              <Collapse defaultActiveKey={["1"]} style={{ border: 'none', backgroundColor: 'pink' }}>
                 <Panel
-                  header={                  <Input
+                  header={
+                  <Input
                     value={section.name}
                     onChange={(e) =>
                       setDashboard((prev) =>
@@ -526,40 +828,44 @@ const Dashboard = ({ dashboardId = "default" }) => {
                         )
                       )
                     }
-                    style={{ fontWeight: "bold", fontSize: 14, width: 200 }} // Reduced font size from 18 to 14
+                    style={{ fontWeight: "bold", fontSize: 12, width: 200 }} // Reduced font size from 18 to 14
                   />
                   }
                   key="1"
-                  extra={<span>  <Button
-                className="hover-add-chart-btn-header"
-                type="primary"
-                size="small"
-                icon={<PlusOutlined />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openAddChartModal();
-                }}
-                style={{
-                  display: 'none',
-                }}
-              >
-                Add Chart
-              </Button></span>}
-                  // style={{ border: 'none' }}
+                  extra={
+                    <Button
+                      className="hover-add-chart-btn-header"
+                      type="primary"
+                      size="small"
+                      icon={<PlusOutlined />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openAddChartDrawer();
+                      }}
+                      style={{
+                        display: 'none',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      Add Chart
+                    </Button>
+                  }
                 >
-                  <Divider style={{ margin: '8px 0' }} />
-                  {/* Section container with reduced height */}
                   <div
                     className="section-container"
                     style={{
                       position: "relative",
-                      minHeight: 180, // Further reduced from 250 to 180
+                      width: "100%",
+                      minHeight: "auto", // Remove fixed height
                     }}
                   >
                     <div
                       className="grid-stack"
                       ref={gridRefs[sectionIdx]}
-                      style={{ minHeight: 180 }} // Reduced from 250 to 180
+                      style={{ 
+                        width: "100%",
+                        minHeight: "auto" // Remove fixed height to be fully responsive
+                      }}
                     >
                     {(() => {
                       const charts = section.charts_list;
@@ -576,7 +882,7 @@ const Dashboard = ({ dashboardId = "default" }) => {
                             gs-h={chart.h}
                             data-gs-id={chart.id} // Add this line!
                           >
-                            <div className="grid-stack-item-content">
+                            <div className="grid-stack-item-content" style={{ height: "100%", width: "100%" }}>
                               <Card
                                 title={
                                   chart.name ||
@@ -603,22 +909,55 @@ const Dashboard = ({ dashboardId = "default" }) => {
                                     </Popconfirm>
                                   </>
                                 }
+                                style={{ 
+                                  height: "100%", 
+                                  width: "100%",
+                                  display: "flex",
+                                  flexDirection: "column"
+                                }}
+                                bodyStyle={{ 
+                                  flex: 1, 
+                                  padding: "8px",
+                                  height: "calc(100% - 57px)", // Account for header
+                                  overflow: "visible" // Remove any overflow scroll
+                                }}
                               >
-                                <HighchartsReact
-                                  highcharts={Highcharts}
-                                  options={chart.options}
-                                  ref={(chartComponent) => {
-                                    if (chartComponent && chartComponent.chart) {
-                                      const chartInstance = chartComponent.chart;
-                                      // Store reference in parent div so GridStack listener can find it
-                                      const chartContainer =
-                                        chartInstance.renderTo?.parentElement;
-                                      if (chartContainer) {
-                                        chartContainer.__chartRef = chartInstance;
+                                <div style={{ 
+                                  height: "100%", 
+                                  width: "100%",
+                                  minHeight: "200px" // Minimum height for charts
+                                }}>
+                                  <HighchartsReact
+                                    highcharts={Highcharts}
+                                    options={{
+                                      ...chart.options,
+                                      chart: {
+                                        ...chart.options.chart,
+                                        height: null, // Let chart size itself
+                                        backgroundColor: 'transparent',
+                                        style: {
+                                          fontFamily: 'inherit'
+                                        }
                                       }
-                                    }
-                                  }}
-                                />
+                                    }}
+                                    containerProps={{ 
+                                      style: { 
+                                        height: "100%", 
+                                        width: "100%" 
+                                      } 
+                                    }}
+                                    ref={(chartComponent) => {
+                                      if (chartComponent && chartComponent.chart) {
+                                        const chartInstance = chartComponent.chart;
+                                        // Store reference in container for resize handling
+                                        const chartContainer = chartInstance.renderTo;
+                                        if (chartContainer) {
+                                          chartContainer.__chartRef = chartInstance;
+                                        }
+                                      }
+                                    }}
+                                  />
+                                </div>
                               </Card>
                             </div>
                           </div>
@@ -634,88 +973,317 @@ const Dashboard = ({ dashboardId = "default" }) => {
         ))}
       </div>
 
-      {/* Add Chart Modal */}
-      <Modal
-        title="Add Chart"
-        open={addChartModal}
-        onCancel={closeAddChartModal}
-        footer={null}
+      {/* Add Chart Drawer */}
+      <Drawer
+        title={
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between',
+            fontSize: '18px',
+            fontWeight: '600',
+            color: '#333'
+          }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              Add New Chart
+            </span>
+          </div>
+        }
+        placement="right"
+        open={addChartDrawer}
+        onClose={closeAddChartDrawer}
+        width={520}
         destroyOnClose
-      >
-        <Form form={addChartForm} layout="vertical" onFinish={handleAddChart}>
-          <Form.Item
-            label="Section"
-            name="section"
-            rules={[{ required: true, message: "Please select a section" }]}
-          >
-            <Select placeholder="Select section">
-              {dashboard.map((sec, idx) => (
-                <Option key={idx} value={String(idx)}>
-                  {sec.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            label="Chart Type"
-            name="chartType"
-            rules={[{ required: true, message: "Please select a chart type" }]}
-          >
-            <Select placeholder="Select chart type">
-              {chartTypes.map((ct) => (
-                <Option key={ct.value} value={ct.value}>
-                  {ct.label}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            label="Chart Name"
-            name="chartName"
-            rules={[{ required: true, message: "Please enter chart name" }]}
-          >
-            <Input placeholder="Enter chart name" />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit" block>
-              Add Chart
+        maskClosable={true}
+        keyboard={true}
+        closeIcon={
+          <CloseOutlined 
+            style={{ 
+              fontSize: '16px', 
+              color: '#666',
+              padding: '6px',
+              borderRadius: '4px',
+              transition: 'all 0.2s ease',
+              cursor: 'pointer'
+            }} 
+            onMouseEnter={(e) => {
+              e.target.style.background = '#f5f5f5';
+              e.target.style.color = '#333';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'transparent';
+              e.target.style.color = '#666';
+            }}
+          />
+        }
+        headerStyle={{
+          borderBottom: '1px solid #f0f0f0',
+          padding: '20px 24px',
+          background: 'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)',
+          borderRadius: '0'
+        }}
+        bodyStyle={{
+          padding: '24px',
+          background: '#fff',
+          height: 'calc(100vh - 120px)',
+          overflow: 'auto'
+        }}
+        footerStyle={{
+          padding: '16px 24px',
+          borderTop: '1px solid #f0f0f0',
+          background: '#fafafa',
+          boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.05)'
+        }}
+        footer={
+          <div style={{ 
+            display: 'flex', 
+            gap: '12px', 
+            justifyContent: 'flex-end',
+            alignItems: 'center'
+          }}>
+            <Button 
+              onClick={closeAddChartDrawer}
+              style={{ 
+                minWidth: '90px',
+                height: '36px',
+                borderRadius: '6px'
+              }}
+            >
+              Cancel
             </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
-
-      {/* Edit Chart Modal */}
-      <Modal
-        title="Edit Chart"
-        open={editChartModal}
-        onCancel={closeEditChartModal}
-        footer={null}
-        destroyOnClose
-      >
-        <Form form={editChartForm} layout="vertical" onFinish={handleEditChart}>
-          <Form.Item
-            label="Chart Type"
-            name="chartType"
-            rules={[{ required: true, message: "Please select a chart type" }]}
-          >
-            <Select placeholder="Select chart type">
-              {chartTypes.map((ct) => (
-                <Option key={ct.value} value={ct.value}>
-                  {ct.label}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" block>
-              Update Chart
+            <Button 
+              type="primary" 
+              onClick={() => addChartForm.submit()}
+              disabled={!selectedChartType}
+              style={{ 
+                minWidth: '90px',
+                height: '36px',
+                borderRadius: '6px',
+                background: selectedChartType 
+                  ? 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)'
+                  : '#f5f5f5',
+                border: 'none',
+                boxShadow: selectedChartType 
+                  ? '0 2px 4px rgba(24, 144, 255, 0.3)'
+                  : 'none',
+                color: selectedChartType ? '#fff' : '#bfbfbf',
+                transition: 'all 0.3s ease',
+                transform: selectedChartType ? 'scale(1)' : 'scale(0.95)'
+              }}
+              loading={false}
+            >
+              {selectedChartType ? '✨ Create Chart' : 'Create Chart'}
             </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
+          </div>
+        }
+      >
+        <div style={{ 
+          height: '100%', 
+          display: 'flex', 
+          flexDirection: 'column',
+          gap: '4px'
+        }}>
+          <Form 
+            form={addChartForm} 
+            layout="vertical" 
+            onFinish={handleAddChart}
+            style={{ flex: 1 }}
+            requiredMark="optional"
+          >
+
+            <Form.Item
+              label={
+                <span style={{ 
+                  fontSize: '14px', 
+                  fontWeight: '600', 
+                  color: '#333',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}>
+                  🏷️ Chart Name
+                </span>
+              }
+              name="chartName"
+              rules={[{ required: true, message: "Please enter chart name" }]}
+              style={{ marginBottom: '32px' }}
+            >
+              <Input 
+                placeholder="Enter a descriptive name for your chart"
+                size="large"
+                style={{ borderRadius: '8px' }}
+                maxLength={50}
+                showCount
+                suffix={
+                  <span style={{ color: '#bfbfbf', fontSize: '12px' }}>
+                    ✏️
+                  </span>
+                }
+              />
+            </Form.Item>
+
+            <Form.Item
+              label={
+                <span style={{ 
+                  fontSize: '14px', 
+                  fontWeight: '600', 
+                  color: '#333',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}>
+                  🎯 Target Section
+                </span>
+              }
+              name="section"
+              rules={[{ required: true, message: "Please select a section" }]}
+              style={{ marginBottom: '24px' }}
+            >
+              <Select 
+                placeholder="Choose which section to add the chart to"
+                size="large"
+                style={{ borderRadius: '8px' }}
+                suffixIcon={<span style={{ color: '#1890ff' }}>▼</span>}
+              >
+                {dashboard.map((sec, idx) => (
+                  <Option key={idx} value={String(idx)}>
+                    <div style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '10px',
+                      padding: '4px 0'
+                    }}>
+                      <span style={{ 
+                        width: '8px', 
+                        height: '8px', 
+                        borderRadius: '50%', 
+                        background: idx === 0 ? '#1890ff' : idx === 1 ? '#52c41a' : '#faad14',
+                        boxShadow: `0 0 0 2px ${idx === 0 ? '#e6f7ff' : idx === 1 ? '#f6ffed' : '#fff7e6'}`
+                      }}></span>
+                      <span style={{ fontWeight: '500' }}>{sec.name}</span>
+                      <span style={{ 
+                        fontSize: '11px', 
+                        color: '#999',
+                        background: '#f5f5f5',
+                        padding: '2px 6px',
+                        borderRadius: '10px'
+                      }}>
+                        {sec.charts_list.length} chart{sec.charts_list.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              label={
+                <span style={{ 
+                  fontSize: '14px', 
+                  fontWeight: '600', 
+                  color: '#333',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}>
+                  📈 Chart Type
+                </span>
+              }
+              name="chartType"
+              rules={[{ 
+                validator: () => {
+                  if (!selectedChartType) {
+                    return Promise.reject(new Error('Please select a chart type'));
+                  }
+                  return Promise.resolve();
+                }
+              }]}
+              style={{ marginBottom: '24px' }}
+            >
+              <div className="chart-type-grid row">
+                {chartTypes.map((chartType) => (
+                  <div
+
+                    key={chartType.value}
+                    className={`col-3 chart-type-card ${selectedChartType === chartType.value ? 'selected' : ''}`}
+                    onClick={() => setSelectedChartType(chartType.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedChartType(chartType.value);
+                      }
+                    }}
+                    tabIndex={0}
+                    role="button"
+                    aria-pressed={selectedChartType === chartType.value}
+                    aria-label={`Select ${chartType.label} chart type - ${chartType.description}`}
+                    style={{
+                      borderColor: selectedChartType === chartType.value 
+                        ? chartType.color 
+                        : '#f0f0f0',
+                      background: selectedChartType === chartType.value 
+                        ? `${chartType.color}08` 
+                        : '#fff',
+                      boxShadow: selectedChartType === chartType.value 
+                        ? `0 4px 12px ${chartType.color}25` 
+                        : '0 2px 4px rgba(0,0,0,0.05)',
+                      padding: '12px',
+                    }}
+                  >
+                    {/* Chart icon */}
+                    <div 
+                      className="chart-type-icon"
+                      style={{
+                        color: selectedChartType === chartType.value 
+                          ? chartType.color 
+                          : '#8c8c8c',
+                        filter: selectedChartType === chartType.value 
+                          ? 'none' 
+                          : 'grayscale(0.2)'
+                      }}
+                    >
+                      {chartType.svgIcon}
+                    </div>
+                    
+                    {/* Chart name */}
+                    <div 
+                      className="chart-type-name"
+                      style={{
+                        fontWeight: selectedChartType === chartType.value ? '600' : '500',
+                        color: selectedChartType === chartType.value 
+                          ? chartType.color 
+                          : '#333'
+                      }}
+                    >
+                      {chartType.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Helper message when no chart type is selected */}
+              {!selectedChartType && (
+                <div style={{
+                  marginTop: '12px',
+                  padding: '12px',
+                  background: '#f8f9fa',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '8px',
+                  textAlign: 'center'
+                }}>
+                  <span style={{ 
+                    fontSize: '12px', 
+                    color: '#6c757d',
+                    fontStyle: 'italic'
+                  }}>
+                    👆 Click on a chart type above to select it
+                  </span>
+                </div>
+              )}
+            </Form.Item>
+          </Form>
+        </div>
+      </Drawer>     
     </div>
   );
 };

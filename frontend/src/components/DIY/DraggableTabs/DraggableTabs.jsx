@@ -69,6 +69,14 @@ const DraggableTabs = () => {
     });
   }, []);
   
+  const updateTabTitle = useCallback((tabKey, newTitle) => {
+    setTabs((prevTabs) => 
+      prevTabs.map((tab) => 
+        tab.key === tabKey ? { ...tab, title: newTitle } : tab
+      )
+    );
+  }, []);
+  
   const addTab = () => {
     const newKey = String(Date.now());
     const dashboardNames = [
@@ -174,7 +182,11 @@ const DraggableTabs = () => {
               key={tab.key}
               closable={false}
             >
-              <Dashboard dashboardId={tab.key} />
+              <Dashboard 
+                dashboardId={tab.key} 
+                initialTitle={tab.title}
+                onDashboardNameChange={(newName) => updateTabTitle(tab.key, newName)}
+              />
             </TabPane>
           ))}
         </Tabs>
