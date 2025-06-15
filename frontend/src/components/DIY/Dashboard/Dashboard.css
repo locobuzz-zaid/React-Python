@@ -181,3 +181,76 @@ button:focus-visible,
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Section hover styles */
+.section-container {
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.section-container:hover {
+  background-color: #fafafa;
+}
+
+.hover-add-chart-btn {
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.hover-add-chart-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+}
+
+/* Enhanced Section hover styles */
+.collapsible-section-wrapper {
+  position: relative;
+  transition: all 0.2s ease;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.collapsible-section-wrapper:hover {
+  border-color: #722ed1;
+  box-shadow: 0 2px 8px rgba(114, 46, 209, 0.15);
+  background-color: #fafafa;
+}
+
+.hover-add-chart-btn-header {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+}
+
+.collapsible-section-wrapper:hover .hover-add-chart-btn-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hover-add-chart-btn-header:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+}
+
+/* Section container with reduced height */
+.section-container {
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  min-height: 180px; /* Reduced from 250px */
+}
+
+/* Grid stack with reduced height */
+.grid-stack {
+  min-height: 180px; /* Reduced from 250px */
+}
+
+/* Section name input with reduced font size */
+.section-container input[style*="font-weight: bold"] {
+  font-size: 14px !important; /* Reduced from 18px */
+}

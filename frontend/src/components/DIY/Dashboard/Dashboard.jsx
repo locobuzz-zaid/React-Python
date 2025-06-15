@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
-  Tabs,
   Typography,
   Tag,
   Input,
@@ -25,9 +24,7 @@ import HighchartsReact from "highcharts-react-official";
 import { GridStack } from "gridstack";
 import "gridstack/dist/gridstack.min.css";
 
-const { TabPane } = Tabs;
 const { Panel } = Collapse;
-const { Paragraph } = Typography;
 const { Option } = Select;
 
 const chartTypes = [
@@ -78,74 +75,123 @@ const dummyChartData = {
 const DEFAULT_WIDTH = 4;
 const DEFAULT_HEIGHT = 4;
 
-const Dashboard = () => {
+const Dashboard = ({ dashboardId = "default" }) => {
+  // Create initial dashboard with one section for first dashboard, minimal for new ones
+  const createInitialDashboard = () => {
+    if (dashboardId === "1") {
+      // First dashboard gets full sections
+      return [
+        {
+          name: `Analytics Section - ${dashboardId}`,
+          charts_list: [
+            {
+              id: 1,
+              type: "line",
+              name: "Performance Trends",
+              options: {
+                ...dummyChartData.line,
+                title: { text: `Performance Trends - ${dashboardId}` }
+              },
+              x: 0,
+              y: 0,
+              w: 4,
+              h: 4,
+            },
+            {
+              id: 2,
+              type: "bar",
+              name: "Category Analysis",
+              options: {
+                ...dummyChartData.bar,
+                title: { text: `Category Analysis - ${dashboardId}` }
+              },
+              x: 4,
+              y: 0,
+              w: 4,
+              h: 4,
+            },
+            {
+              id: 3,
+              type: "pie",
+              name: "Market Share",
+              options: {
+                ...dummyChartData.pie,
+                title: { text: `Market Share - ${dashboardId}` }
+              },
+              x: 8,
+              y: 0,
+              w: 4,
+              h: 4,
+            },
+          ],
+        },
+        {
+          name: `Reports Section - ${dashboardId}`,
+          charts_list: [
+            {
+              id: 4,
+              type: "area",
+              name: "Growth Trends",
+              options: {
+                ...dummyChartData.area,
+                title: { text: `Growth Trends - ${dashboardId}` }
+              },
+              x: 0,
+              y: 0,
+              w: 6,
+              h: 4,
+            },
+            {
+              id: 5,
+              type: "column",
+              name: "Monthly Revenue",
+              options: {
+                ...dummyChartData.column,
+                title: { text: `Monthly Revenue - ${dashboardId}` }
+              },
+              x: 6,
+              y: 0,
+              w: 6,
+              h: 4,
+            },
+          ],
+        },
+        {
+          name: `KPI Section - ${dashboardId}`,
+          charts_list: [
+            {
+              id: 6,
+              type: "line",
+              name: "KPI Tracking",
+              options: {
+                ...dummyChartData.line,
+                title: { text: `KPI Tracking - ${dashboardId}` }
+              },
+              x: 0,
+              y: 0,
+              w: 12,
+              h: 4,
+            },
+          ],
+        },
+      ];
+    } else {
+      // New dashboards get only one section
+      return [
+        {
+          name: `Section 1 - ${dashboardId}`,
+          charts_list: [],
+        },
+      ];
+    }
+  };
+
   // Dashboard state: array of sections, each with charts_list
-  const [dashboard, setDashboard] = useState([
-    {
-      name: "Section 1",
-      description: "This is a description for Section 1.",
-      tags: ["charts", "demo"],
-      charts_list: [
-        {
-          id: 1,
-          type: "line",
-          options: dummyChartData.line,
-          x: 0,
-          y: 0,
-          w: 4,
-          h: 4,
-        },
-        {
-          id: 2,
-          type: "bar",
-          options: dummyChartData.bar,
-          x: 4,
-          y: 0,
-          w: 4,
-          h: 4,
-        },
-        {
-          id: 3,
-          type: "pie",
-          options: dummyChartData.pie,
-          x: 8,
-          y: 0,
-          w: 4,
-          h: 4,
-        },
-      ],
-    },
-    {
-      name: "Section 2",
-      description: "",
-      tags: [],
-      charts_list: [
-        {
-          id: 4,
-          type: "area",
-          options: dummyChartData.area,
-          x: 0,
-          y: 0,
-          w: 6,
-          h: 4,
-        },
-        {
-          id: 5,
-          type: "column",
-          options: dummyChartData.column,
-          x: 6,
-          y: 0,
-          w: 6,
-          h: 4,
-        },
-      ],
-    },
-  ]);
-  const [dashboardName, setDashboardName] = useState("My Dashboard");
+  const [dashboard, setDashboard] = useState(createInitialDashboard);
+  const [dashboardName, setDashboardName] = useState(`Dashboard ${dashboardId}`);
   const [dashboardDesc, setDashboardDesc] = useState(
-    "This is a demo dashboard."
+    dashboardId === "1" ? "This is your main dashboard." : `Dashboard ${dashboardId}`
   );
-  const [activeTab, setActiveTab] = useState("1");
   const [addChartModal, setAddChartModal] = useState(false);
   const [editChartModal, setEditChartModal] = useState(false);
   const [addChartForm] = Form.useForm();
@@ -155,12 +201,24 @@ const Dashboard = () => {
     chartIdx: null,
   });
 
-  const gridRefs = [useRef(), useRef()];
+  const gridRef1 = useRef();
+  const gridRef2 = useRef();
+  const gridRef3 = useRef();
+  
+  // Create dynamic grid refs based on dashboard sections
+  const gridRefs = useMemo(() => {
+    const refs = [gridRef1, gridRef2, gridRef3];
+    // Add more refs for additional sections beyond the first 3
+    while (refs.length < dashboard.length) {
+      refs.push(React.createRef());
+    }
+    return refs;
+  }, [dashboard.length]);
 
   // GridStack init
   useEffect(() => {
     dashboard.forEach((section, idx) => {
-      if (gridRefs[idx].current && !gridRefs[idx].current.gridstack) {
+      if (gridRefs[idx]?.current && !gridRefs[idx].current.gridstack) {
         const grid = GridStack.init(
           {
             float: true,
@@ -190,8 +248,7 @@ const Dashboard = () => {
         });
       }
     });
-    // eslint-disable-next-line
-  }, [dashboard]);
+  }, [dashboard, gridRefs]);
 
   // Listen for GridStack changes
   useEffect(() => {
@@ -225,27 +282,7 @@ const Dashboard = () => {
         grid._hasChangeHandler = true; // So we don't add multiple handlers
       }
     });
-  }, [dashboard]);
-
-  // Section 1 tag handlers
-  const handleAddTag = (sectionIdx, tag) => {
-    setDashboard((prev) =>
-      prev.map((sec, idx) =>
-        idx === sectionIdx && tag && !sec.tags.includes(tag)
-          ? { ...sec, tags: [...sec.tags, tag] }
-          : sec
-      )
-    );
-  };
-  const handleRemoveTag = (sectionIdx, removedTag) => {
-    setDashboard((prev) =>
-      prev.map((sec, idx) =>
-        idx === sectionIdx
-          ? { ...sec, tags: sec.tags.filter((tag) => tag !== removedTag) }
-          : sec
-      )
-    );
-  };
+  }, [dashboard, gridRefs]);
 
   // Add Chart Modal handlers
   const openAddChartModal = () => setAddChartModal(true);
@@ -254,15 +291,7 @@ const Dashboard = () => {
     addChartForm.resetFields();
   };
 
-  // Edit Chart Modal handlers
-  const openEditChartModal = (sectionIdx, chartIdx) => {
-    setEditChartInfo({ sectionIdx, chartIdx });
-    const chart = dashboard[sectionIdx].charts_list[chartIdx];
-    editChartForm.setFieldsValue({
-      chartType: chart.type,
-    });
-    setEditChartModal(true);
-  };
+  // Edit Chart Modal handlers - keeping for potential future use
   const closeEditChartModal = () => {
     setEditChartModal(false);
     setEditChartInfo({ sectionIdx: null, chartIdx: null });
@@ -380,16 +409,25 @@ const Dashboard = () => {
     message.success("Dashboard saved! (Check console for data)");
   };
 
-  // Tab change handler
-  const handleTabClick = (key) => setActiveTab(key);
+  // Add Section handler
+  const handleAddSection = () => {
+    const newSection = {
+      name: `New Section - ${dashboardId}`,
+      charts_list: [],
+      editMode: false,
+    };
+
+    setDashboard((prev) => [...prev, newSection]);
+    message.success("New section added successfully!");
+  };
 
   return (
     <div className="dashboard-main-content">
-      {/* Dashboard Navbar */}
+      {/* Dashboard Header */}
       <div
         style={{
-          background: "#f5f5f5",
-          padding: "16px 24px",
+          background: "#fafafa",
+          padding: "12px 24px",
           borderBottom: "1px solid #eee",
           display: "flex",
           alignItems: "center",
@@ -423,9 +461,9 @@ const Dashboard = () => {
           <Button
             icon={<PlusOutlined />}
             type="primary"
-            onClick={openAddChartModal}
+            onClick={handleAddSection}
           >
-            Add Chart
+            Add Section
           </Button>
           <Button
             icon={<SaveOutlined />}
@@ -437,20 +475,47 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Tabs and Sections */}
-      <Tabs
-        onChange={handleTabClick}
-        defaultActiveKey="1"
-        activeKey={activeTab}
-        className="sticky-tabs"
-        style={{ padding: 24, marginTop: "60px" }}
-      >
+      {/* Dashboard Content */}
+      <div style={{ padding: "16px 24px" }}>
         {dashboard.map((section, sectionIdx) => (
-          <TabPane tab={section.name} key={String(sectionIdx + 1)}>
-            <Collapse defaultActiveKey={["1"]} style={{ marginBottom: 24 }}>
-              <Panel
-                header={
-                  <Input
+          <div key={sectionIdx} style={{ marginBottom: "16px" }}>
+            <div
+              className="collapsible-section-wrapper"
+              onMouseEnter={(e) => {
+                const button = e.currentTarget.querySelector('.hover-add-chart-btn-header');
+                if (button) {
+                  button.style.display = 'block';
+                  button.style.opacity = '1';
+                }
+              }}
+              onMouseLeave={(e) => {
+                const button = e.currentTarget.querySelector('.hover-add-chart-btn-header');
+                if (button) {
+                  button.style.display = 'none';
+                  button.style.opacity = '0';
+                }
+              }}
+            >
+              {/* Hover Add Chart Button on Section Header */}
+              {/* <Button
+                className="hover-add-chart-btn-header"
+                type="primary"
+                size="small"
+                icon={<PlusOutlined />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openAddChartModal();
+                }}
+                style={{
+                  display: 'none',
+                }}
+              >
+                Add Chart
+              </Button> */}
+
+              <Collapse defaultActiveKey={["1"]} style={{ border: 'none', backgroundColor: 'pink' }}>
+                <Panel
+                  header={                  <Input
                     value={section.name}
                     onChange={(e) =>
                       setDashboard((prev) =>
@@ -461,202 +526,113 @@ const Dashboard = () => {
                         )
                       )
                     }
-                    style={{ fontWeight: "bold", fontSize: 18, width: 200 }}
+                    style={{ fontWeight: "bold", fontSize: 14, width: 200 }} // Reduced font size from 18 to 14
                   />
-                }
-                key="1"
-                extra={
-                  <>
-                    {sectionIdx === 0 && (
-                      <>
-                        <Button
-                          size="small"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDashboard((prev) =>
-                              prev.map((sec, idx) =>
-                                idx === sectionIdx
-                                  ? { ...sec, editMode: !sec.editMode }
-                                  : sec
-                              )
-                            );
-                          }}
-                          style={{ marginRight: 8 }}
-                        >
-                          {section.editMode ? "Save" : "Edit"}
-                        </Button>
-                        <Button
-                          size="small"
-                          type="primary"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openAddChartModal();
-                          }}
-                        >
-                          Add Chart
-                        </Button>
-                      </>
-                    )}
-                  </>
-                }
+                  }
+                  key="1"
+                  extra={<span>  <Button
+                className="hover-add-chart-btn-header"
+                type="primary"
+                size="small"
+                icon={<PlusOutlined />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openAddChartModal();
+                }}
+                style={{
+                  display: 'none',
+                }}
               >
-                {sectionIdx === 0 ? (
-                  <>
-                    <Paragraph
-                      editable={{
-                        onChange: (val) =>
-                          setDashboard((prev) =>
-                            prev.map((sec, idx) =>
-                              idx === sectionIdx
-                                ? { ...sec, description: val }
-                                : sec
-                            )
-                          ),
-                      }}
-                      style={{ marginBottom: 8 }}
-                    >
-                      {section.description}
-                    </Paragraph>
-                    <div style={{ marginBottom: 8 }}>
-                      {section.tags.map((tag) => (
-                        <Tag
-                          key={tag}
-                          closable
-                          onClose={() => handleRemoveTag(sectionIdx, tag)}
-                          style={{ marginBottom: 4 }}
-                        >
-                          {tag}
-                        </Tag>
-                      ))}
-                      <Input
-                        size="small"
-                        style={{ width: 100, marginLeft: 8 }}
-                        value={section.inputTag || ""}
-                        onChange={(e) =>
-                          setDashboard((prev) =>
-                            prev.map((sec, idx) =>
-                              idx === sectionIdx
-                                ? { ...sec, inputTag: e.target.value }
-                                : sec
-                            )
-                          )
-                        }
-                        onPressEnter={() => {
-                          handleAddTag(sectionIdx, section.inputTag);
-                          setDashboard((prev) =>
-                            prev.map((sec, idx) =>
-                              idx === sectionIdx
-                                ? { ...sec, inputTag: "" }
-                                : sec
-                            )
-                          );
-                        }}
-                        placeholder="Add tag"
-                      />
-                      <Button
-                        size="small"
-                        onClick={() => {
-                          handleAddTag(sectionIdx, section.inputTag);
-                          setDashboard((prev) =>
-                            prev.map((sec, idx) =>
-                              idx === sectionIdx
-                                ? { ...sec, inputTag: "" }
-                                : sec
-                            )
-                          );
-                        }}
-                        style={{ marginLeft: 4 }}
-                      >
-                        Add
-                      </Button>
-                    </div>
-                  </>
-                ) : null}
-                <Divider />
-                {/* {console.log("Rendering section:", dashboard[sectionIdx])} */}
-                <div
-                  className="grid-stack"
-                  ref={gridRefs[sectionIdx]}
-                  style={{ minHeight: 400 }}
+                Add Chart
+              </Button></span>}
+                  // style={{ border: 'none' }}
                 >
-                  {(() => {
-                    const charts = section.charts_list;
-                    if (!charts.length) return null;
+                  <Divider style={{ margin: '8px 0' }} />
+                  {/* Section container with reduced height */}
+                  <div
+                    className="section-container"
+                    style={{
+                      position: "relative",
+                      minHeight: 180, // Further reduced from 250 to 180
+                    }}
+                  >
+                    <div
+                      className="grid-stack"
+                      ref={gridRefs[sectionIdx]}
+                      style={{ minHeight: 180 }} // Reduced from 250 to 180
+                    >
+                    {(() => {
+                      const charts = section.charts_list;
+                      if (!charts.length) return null;
 
-                    return charts.map((chart, idx) => {
-                      return (
-                        <div
-                          className="grid-stack-item"
-                          key={chart.id}
-                          gs-x={chart.x}
-                          gs-y={chart.y}
-                          gs-w={chart.w}
-                          gs-h={chart.h}
-                          data-gs-id={chart.id} // Add this line!
-                        >
-                          <div className="grid-stack-item-content">
-                            <Card
-                              title={
-                                chart.name ||
-                                `${
-                                  chart.type.charAt(0).toUpperCase() +
-                                  chart.type.slice(1)
-                                } Chart`
-                              }
-                              extra={
-                                <>
-                                  <Button
-                                    icon={<EditOutlined />}
-                                    size="small"
-                                    onClick={() =>
-                                      openEditChartModal(sectionIdx, idx)
+                      return charts.map((chart, idx) => {
+                        return (
+                          <div
+                            className="grid-stack-item"
+                            key={chart.id}
+                            gs-x={chart.x}
+                            gs-y={chart.y}
+                            gs-w={chart.w}
+                            gs-h={chart.h}
+                            data-gs-id={chart.id} // Add this line!
+                          >
+                            <div className="grid-stack-item-content">
+                              <Card
+                                title={
+                                  chart.name ||
+                                  `${
+                                    chart.type.charAt(0).toUpperCase() +
+                                    chart.type.slice(1)
+                                  } Chart`
+                                }
+                                extra={
+                                  <>
+                                    <Popconfirm
+                                      title="Delete this chart?"
+                                      onConfirm={() =>
+                                        handleDeleteChart(sectionIdx, idx)
+                                      }
+                                      okText="Yes"
+                                      cancelText="No"
+                                    >
+                                      <Button
+                                        icon={<DeleteOutlined />}
+                                        size="small"
+                                        danger
+                                      />
+                                    </Popconfirm>
+                                  </>
+                                }
+                              >
+                                <HighchartsReact
+                                  highcharts={Highcharts}
+                                  options={chart.options}
+                                  ref={(chartComponent) => {
+                                    if (chartComponent && chartComponent.chart) {
+                                      const chartInstance = chartComponent.chart;
+                                      // Store reference in parent div so GridStack listener can find it
+                                      const chartContainer =
+                                        chartInstance.renderTo?.parentElement;
+                                      if (chartContainer) {
+                                        chartContainer.__chartRef = chartInstance;
+                                      }
                                     }
-                                    style={{ marginRight: 8 }}
-                                  />
-                                  <Popconfirm
-                                    title="Delete this chart?"
-                                    onConfirm={() =>
-                                      handleDeleteChart(sectionIdx, idx)
-                                    }
-                                    okText="Yes"
-                                    cancelText="No"
-                                  >
-                                    <Button
-                                      icon={<DeleteOutlined />}
-                                      size="small"
-                                      danger
-                                    />
-                                  </Popconfirm>
-                                </>
-                              }
-                            >
-                              <HighchartsReact
-                                highcharts={Highcharts}
-                                options={chart.options}
-                                ref={(chartComponent) => {
-                                  if (chartComponent && chartComponent.chart) {
-                                    const chartInstance = chartComponent.chart;
-                                    // Store reference in parent div so GridStack listener can find it
-                                    const chartContainer =
-                                      chartInstance.renderTo?.parentElement;
-                                    if (chartContainer) {
-                                      chartContainer.__chartRef = chartInstance;
-                                    }
-                                  }
-                                }}
-                              />
-                            </Card>
+                                  }}
+                                />
+                              </Card>
+                            </div>
                           </div>
-                        </div>
-                      );
-                    });
-                  })()}
-                </div>
-              </Panel>
-            </Collapse>
-          </TabPane>
+                        );
+                      });
+                    })()}
+                    </div>
+                  </div>
+                </Panel>
+              </Collapse>
+            </div>
+          </div>
         ))}
-      </Tabs>
+      </div>
 
       {/* Add Chart Modal */}
       <Modal

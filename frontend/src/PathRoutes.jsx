@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ErrorBoundary from "./ErrorBoundary";
 import Navbar from "./components/NewzVerse/Landing/Navbar";
@@ -23,9 +22,8 @@ const Notes = React.lazy(() => import("./components/Notes/Notes"));
 const DIY = React.lazy(() => import("./components/DIY/LayoutView"));
 
 const PathRoutes = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
   const location = useLocation();
-  const dispatch = useDispatch();
 
   let p_token = localStorage.getItem("p_token");
   const [isShowChatHistorySidebar, setIsShowChatHistorySidebar] = useState(
@@ -37,11 +35,7 @@ const PathRoutes = () => {
   useEffect(() => {
     if (location.pathname === "/") {
       // Reset Chat Response
-      let obj = {
-        persist_data: [],
-        data: [],
-        total_length: null,
-      };
+     
     } else if (location.pathname === "/sign-up") {
       document.body.style.overflow = "hidden";
     } else if (location.pathname === "/chat-with-data") {

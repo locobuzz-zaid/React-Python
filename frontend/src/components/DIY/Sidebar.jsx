@@ -29,6 +29,7 @@ const Sidebar = ({ onMenuSelect, selectedMenu }) => {
   return (
     <>
       <Sider
+        style={{ marginTop: "-60px" }}
         theme="light"
         width={80}
         className="dashboard-left-sidebar-container"
